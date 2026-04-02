@@ -74,6 +74,10 @@ def chat(req: ChatRequest) -> ChatResponse:
 def ingest_knowledge(req: IngestKnowledgeRequest) -> Knowledge:
     from datetime import datetime
     import uuid
+    from embeddings import embed_text
+
+    # Generate embedding for the knowledge content
+    embedding = embed_text(req.content)
 
     doc = Knowledge(
         _id=f"doc_{uuid.uuid4().hex}",
@@ -84,8 +88,13 @@ def ingest_knowledge(req: IngestKnowledgeRequest) -> Knowledge:
         status="processed",
         created_at=datetime.utcnow(),
     )
+    
+    # Add embedding to the document before storing
+    doc_dict = doc.model_dump(by_alias=True)
+    doc_dict["embedding"] = embedding
+    
     from db import knowledge
-    knowledge().insert_one(doc.model_dump(by_alias=True))
+    knowledge().insert_one(doc_dict)
     return doc
 
 

@@ -22,7 +22,7 @@ def get_client() -> MongoClient:
 def get_db() -> Any:
     global _db
     if _db is None:
-        _db = get_client()["talker"]
+        _db = get_client()["talkerdb"]
     return _db
 
 
@@ -37,10 +37,11 @@ def chunks() -> Collection:
 
 # Vector search helper (requires Atlas Vector Search index)
 def vector_search(org_id: str, query_vector: list[float], limit: int = 5) -> list[dict[str, Any]]:
-    pipeline = [
+    # Search chunks collection
+    chunks_pipeline = [
         {
             "$search": {
-                "index": "vector_index_v2",
+                "index": "vector_index_v3",
                 "knnBeta": {
                     "vector": query_vector,
                     "path": "embedding",
@@ -59,7 +60,45 @@ def vector_search(org_id: str, query_vector: list[float], limit: int = 5) -> lis
                 "content": 1,
                 "metadata": 1,
                 "score": {"$meta": "searchScore"},
+                "source": "chunks"
             }
         },
     ]
-    return list(chunks().aggregate(pipeline))
+    
+    # Search knowledge collection
+    knowledge_pipeline = [
+        {
+            "$search": {
+                "index": "vector_index_v3",
+                "knnBeta": {
+                    "vector": query_vector,
+                    "path": "embedding",
+                    "k": limit,
+                    "filter": {
+                        "equals": {
+                            "value": org_id,
+                            "path": "org_id"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "$project": {
+                "content": 1,
+                "title": 1,
+                "score": {"$meta": "searchScore"},
+                "source": "knowledge"
+            }
+        },
+    ]
+    
+    # Get results from both collections
+    chunks_results = list(chunks().aggregate(chunks_pipeline))
+    knowledge_results = list(knowledge().aggregate(knowledge_pipeline))
+    
+    # Combine and sort by score
+    all_results = chunks_results + knowledge_results
+    all_results.sort(key=lambda x: x.get('score', 0), reverse=True)
+    
+    return all_results[:limit]

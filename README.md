@@ -61,9 +61,10 @@ npm run dev
 
 ## 🔍 Vector Search
 
-- **Index**: 1536-dimensional embeddings
-- **Database**: MongoDB Atlas Vector Search
+- **Index**: `vector_index_v3` with 1536-dimensional embeddings
+- **Database**: MongoDB Atlas Vector Search in talkerdb
 - **Organization Isolation**: Data separated by org_id
+- **Dual Collection Search**: Searches both knowledge and chunks collections
 
 ## 🏢 Multi-Organization Support
 
@@ -73,9 +74,23 @@ npm run dev
 
 ## 📊 Data Flow
 
-1. **Ingestion**: Documents → Chunks → Embeddings → Vector Store
+1. **Ingestion**: Documents/Chunks → Embeddings → Vector Store (talkerdb)
 2. **Query**: User message → Embedding → Vector Search → Context
 3. **Response**: Context + Query → LLM → Enhanced AI response
+
+## 🎯 Current Status
+
+✅ **Fully Functional RAG System**
+- Vector search with MongoDB Atlas
+- Knowledge ingestion with automatic embedding
+- Multi-organization data isolation
+- Real-time contextual responses
+
+✅ **Complete Backend Integration**
+- ht-ai: Python FastAPI with RAG
+- ht-backend: Node.js TypeScript API
+- Unified talkerdb database
+- Comprehensive test suite
 
 ---
 
