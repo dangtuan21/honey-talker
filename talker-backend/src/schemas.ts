@@ -15,8 +15,8 @@ const objectIdString = z.union([z.string(), z.any()]).transform((val) => {
   return String(val);
 });
 
-// School schema
-export const SchoolSchema = z.object({
+// Organization schema
+export const OrganizationSchema = z.object({
   _id: objectIdString,
   name: z.string(),
   aliases: z.array(z.string()),
@@ -24,12 +24,12 @@ export const SchoolSchema = z.object({
   ...timestamps.shape,
 });
 
-export type School = z.infer<typeof SchoolSchema>;
+export type Organization = z.infer<typeof OrganizationSchema>;
 
 // Chat session schema
 export const ChatSessionSchema = z.object({
   _id: objectIdString,
-  school_id: z.string(),
+  org_id: z.string(),
   user_id: z.string(),
   ...timestamps.shape,
 });
@@ -40,7 +40,7 @@ export type ChatSession = z.infer<typeof ChatSessionSchema>;
 export const ChatMessageSchema = z.object({
   _id: objectIdString,
   session_id: z.string(),
-  school_id: z.string(),
+  org_id: z.string(),
   question: z.object({
     text: z.string(),
     normalized: z.string(),
@@ -52,7 +52,7 @@ export const ChatMessageSchema = z.object({
   }),
   routing: z.object({
     type: z.enum(["single", "multi"]),
-    schools: z.array(z.string()),
+    orgs: z.array(z.string()),
     confidence: z.number(),
   }),
   retrieval: z.object({
@@ -69,7 +69,7 @@ export const ChatMessageSchema = z.object({
 export type ChatMessage = z.infer<typeof ChatMessageSchema>;
 
 // Request/Response DTOs
-export const CreateSchoolDto = z.object({
+export const CreateOrganizationDto = z.object({
   _id: z.string(),
   name: z.string(),
   aliases: z.array(z.string()),
@@ -77,13 +77,13 @@ export const CreateSchoolDto = z.object({
 });
 
 export const CreateSessionDto = z.object({
-  school_id: z.string(),
+  org_id: z.string(),
   user_id: z.string(),
 });
 
 export const CreateMessageDto = z.object({
   session_id: z.string(),
-  school_id: z.string(),
+  org_id: z.string(),
   question: z.object({
     text: z.string(),
     normalized: z.string(),
@@ -93,7 +93,7 @@ export const CreateMessageDto = z.object({
   }),
   routing: z.object({
     type: z.enum(["single", "multi"]),
-    schools: z.array(z.string()),
+    orgs: z.array(z.string()),
     confidence: z.number(),
   }),
   retrieval: z.object({
@@ -106,6 +106,6 @@ export const CreateMessageDto = z.object({
   }),
 });
 
-export type CreateSchoolDto = z.infer<typeof CreateSchoolDto>;
+export type CreateOrganizationDto = z.infer<typeof CreateOrganizationDto>;
 export type CreateSessionDto = z.infer<typeof CreateSessionDto>;
 export type CreateMessageDto = z.infer<typeof CreateMessageDto>;

@@ -20,6 +20,7 @@ class Settings:
     system_prompt: str
     openrouter_site_url: str | None
     openrouter_app_name: str | None
+    mongodb_url: str
 
 
 def get_settings() -> Settings:
@@ -31,7 +32,10 @@ def get_settings() -> Settings:
 
     openai_base_url = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
     openai_model = os.getenv("OPENAI_MODEL", "stepfun/step-3.5-flash:free")
-    system_prompt = os.getenv("SYSTEM_PROMPT", "You are a helpful assistant.")
+    system_prompt = os.getenv("SYSTEM_PROMPT", UNIVERSITY_SYSTEM_PROMPT)
+    mongodb_url = os.getenv("MONGODB_URL")
+    if not mongodb_url:
+        raise RuntimeError("Missing MONGODB_URL in environment")
 
     openrouter_site_url = os.getenv("OPENROUTER_SITE_URL") or None
     openrouter_app_name = os.getenv("OPENROUTER_APP_NAME") or None
@@ -43,4 +47,5 @@ def get_settings() -> Settings:
         system_prompt=system_prompt,
         openrouter_site_url=openrouter_site_url,
         openrouter_app_name=openrouter_app_name,
+        mongodb_url=mongodb_url,
     )

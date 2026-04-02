@@ -3,6 +3,7 @@ import cors from "@fastify/cors";
 import { connect, close } from "./db";
 import { env } from "./config";
 import { schoolsRoutes } from "./routes/schools";
+import { orgsRoutes } from "./routes/orgs";
 import { sessionsRoutes } from "./routes/sessions";
 import { messagesRoutes } from "./routes/messages";
 
@@ -18,7 +19,7 @@ async function buildServer() {
   server.get("/health", async () => ({ status: "ok" }));
 
   // Routes
-  await server.register(schoolsRoutes, { prefix: "/schools" });
+  await server.register(orgsRoutes, { prefix: "/orgs" });
   await server.register(sessionsRoutes, { prefix: "/sessions" });
   await server.register(messagesRoutes, { prefix: "/messages" });
 

@@ -1,14 +1,16 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import { env } from "./config";
 
-let client: MongoClient;
-let db: Db;
+let client: MongoClient | null = null;
+let db: Db | null = null;
 
-export async function connect(): Promise<void> {
+export async function connect(): Promise<MongoClient> {
+  if (client) return Promise.resolve(client);
   client = new MongoClient(env.MONGODB_URL);
   await client.connect();
   db = client.db(env.DATABASE_NAME);
   console.log("Connected to MongoDB");
+  return client;
 }
 
 export function getDb(): Db {
@@ -17,12 +19,16 @@ export function getDb(): Db {
 }
 
 export function close(): Promise<void> {
-  return client.close();
+  if (!client) return Promise.resolve();
+  return client.close().then(() => {
+    client = null;
+    db = null;
+  });
 }
 
 // Collection helpers
-export function schools(): Collection {
-  return getDb().collection("schools");
+export function orgs(): Collection {
+  return getDb().collection("orgs");
 }
 
 export function chatSessions(): Collection {

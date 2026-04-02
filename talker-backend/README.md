@@ -1,11 +1,11 @@
 # talker-backend
 
-Multi-school chatbot backend with MongoDB, built with Node.js + TypeScript + Fastify.
+Multi-organization chatbot backend with MongoDB, built with Node.js + TypeScript + Fastify.
 
 ## Collections
 
-- **schools**: School metadata, names, aliases
-- **chat_sessions**: Per-user/school session tracking
+- **orgs**: Organization metadata, names, aliases
+- **chat_sessions**: Per-user/organization session tracking
 - **chat_messages**: Full Q&A logs with routing/retrieval/LLM metadata
 
 ## Setup
@@ -29,7 +29,7 @@ npm start
 ## API Routes
 
 - `GET /health`
-- `GET/POST/PUT/DELETE /schools`
+- `GET/POST/PUT/DELETE /orgs`
 - `GET/POST/DELETE /sessions`
 - `GET/POST/DELETE /messages`
 - `GET /messages/by-session/:sessionId`
