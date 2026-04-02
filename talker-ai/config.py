@@ -1,0 +1,38 @@
+import os
+from dataclasses import dataclass
+
+from dotenv import load_dotenv
+
+
+@dataclass(frozen=True)
+class Settings:
+    openrouter_api_key: str
+    openai_base_url: str
+    openai_model: str
+    system_prompt: str
+    openrouter_site_url: str | None
+    openrouter_app_name: str | None
+
+
+def get_settings() -> Settings:
+    load_dotenv()
+
+    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+    if not openrouter_api_key:
+        raise RuntimeError("Missing OPENROUTER_API_KEY in environment")
+
+    openai_base_url = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
+    openai_model = os.getenv("OPENAI_MODEL", "stepfun/step-3.5-flash:free")
+    system_prompt = os.getenv("SYSTEM_PROMPT", "You are a helpful assistant.")
+
+    openrouter_site_url = os.getenv("OPENROUTER_SITE_URL") or None
+    openrouter_app_name = os.getenv("OPENROUTER_APP_NAME") or None
+
+    return Settings(
+        openrouter_api_key=openrouter_api_key,
+        openai_base_url=openai_base_url,
+        openai_model=openai_model,
+        system_prompt=system_prompt,
+        openrouter_site_url=openrouter_site_url,
+        openrouter_app_name=openrouter_app_name,
+    )
