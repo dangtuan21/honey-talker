@@ -36,7 +36,7 @@ def chunks() -> Collection:
 
 
 # Vector search helper (requires Atlas Vector Search index)
-def vector_search(school_id: str, query_vector: list[float], limit: int = 5) -> list[dict[str, Any]]:
+def vector_search(org_id: str, query_vector: list[float], limit: int = 5) -> list[dict[str, Any]]:
     pipeline = [
         {
             "$vectorSearch": {
@@ -45,7 +45,7 @@ def vector_search(school_id: str, query_vector: list[float], limit: int = 5) -> 
                 "numCandidates": 100,
                 "limit": limit,
                 "index": "default",  # make sure you have a Vector Search index named "default"
-                "filter": {"school_id": school_id},
+                "filter": {"org_id": org_id},
             }
         },
         {

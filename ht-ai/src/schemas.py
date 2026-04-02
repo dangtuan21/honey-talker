@@ -13,7 +13,7 @@ class Source(BaseModel):
 
 class Knowledge(BaseModel):
     _id: str
-    school_id: str
+    org_id: str
     title: str
     source: Source
     content: str
@@ -29,7 +29,7 @@ class ChunkMetadata(BaseModel):
 
 class Chunk(BaseModel):
     _id: str
-    school_id: str
+    org_id: str
     document_id: str
     content: str
     embedding: list[float]
@@ -45,14 +45,14 @@ class RetrievedChunk(BaseModel):
 
 # Request DTOs
 class IngestKnowledgeRequest(BaseModel):
-    school_id: str
+    org_id: str
     title: str
     source: Source
     content: str
 
 
 class IngestChunkRequest(BaseModel):
-    school_id: str
+    org_id: str
     document_id: str
     content: str
     metadata: ChunkMetadata

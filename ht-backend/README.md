@@ -1,13 +1,13 @@
 # Honey Talker Backend (ht-backend)
 
-A Fastify-based TypeScript backend service for managing multi-school chatbot operations, user sessions, and message persistence.
+A Fastify-based TypeScript backend service for managing multi-organization chatbot operations, user sessions, and message persistence.
 
 ## Features
 
-- **Multi-School Management**: Support for multiple educational organizations
+- **Multi-Organization Management**: Support for multiple educational organizations
 - **User Session Management**: Handle user sessions and authentication
 - **Message Persistence**: Store and retrieve chat messages
-- **Organization Management**: Manage schools and organizational data
+- **Organization Management**: Manage organizations and organizational data
 - **RESTful API**: Clean, typed API endpoints
 - **MongoDB Integration**: Scalable data persistence
 - **CORS Support**: Cross-origin resource sharing
@@ -32,18 +32,11 @@ A Fastify-based TypeScript backend service for managing multi-school chatbot ope
 - `GET /health` - Service health check
 
 ### Organizations
-- `GET /orgs` - List all organizations
-- `POST /orgs` - Create new organization
-- `GET /orgs/:id` - Get organization details
-- `PUT /orgs/:id` - Update organization
-- `DELETE /orgs/:id` - Delete organization
-
-### Schools
-- `GET /schools` - List all schools
-- `POST /schools` - Create new school
-- `GET /schools/:id` - Get school details
-- `PUT /schools/:id` - Update school
-- `DELETE /schools/:id` - Delete school
+- `GET /organizations` - List all organizations (both parent and child)
+- `POST /organizations` - Create new organization (parent or child)
+- `GET /organizations/:id` - Get organization details
+- `PUT /organizations/:id` - Update organization
+- `DELETE /organizations/:id` - Delete organization
 
 ### Sessions
 - `GET /sessions` - List user sessions
@@ -91,22 +84,17 @@ Environment variables:
 ### Organization
 - id: string
 - name: string
+- aliases: array of strings
 - description: string
-- createdAt: Date
-- updatedAt: Date
-
-### School
-- id: string
-- organizationId: string
-- name: string
-- settings: object
+- parent_id: string (optional, null for parent organizations)
+- settings: object (optional, for child organizations)
 - createdAt: Date
 - updatedAt: Date
 
 ### Session
 - id: string
 - userId: string
-- schoolId: string
+- organizationId: string
 - createdAt: Date
 - updatedAt: Date
 - isActive: boolean

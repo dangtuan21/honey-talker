@@ -15,16 +15,30 @@ const objectIdString = z.union([z.string(), z.any()]).transform((val) => {
   return String(val);
 });
 
-// Organization schema
+// Organization schema (supports both parent and child organizations)
 export const OrganizationSchema = z.object({
   _id: objectIdString,
   name: z.string(),
   aliases: z.array(z.string()),
   description: z.string(),
+  parent_id: z.string().optional(), // null for parent organizations, string for child organizations
+  settings: z.record(z.any()).optional(), // settings for child organizations
   ...timestamps.shape,
 });
 
 export type Organization = z.infer<typeof OrganizationSchema>;
+
+// Request/Response DTOs
+export const CreateOrganizationDto = z.object({
+  _id: z.string(),
+  name: z.string(),
+  aliases: z.array(z.string()),
+  description: z.string(),
+  parent_id: z.string().optional(),
+  settings: z.record(z.any()).optional(),
+});
+
+export type CreateOrganizationDto = z.infer<typeof CreateOrganizationDto>;
 
 // Chat session schema
 export const ChatSessionSchema = z.object({
@@ -69,13 +83,6 @@ export const ChatMessageSchema = z.object({
 export type ChatMessage = z.infer<typeof ChatMessageSchema>;
 
 // Request/Response DTOs
-export const CreateOrganizationDto = z.object({
-  _id: z.string(),
-  name: z.string(),
-  aliases: z.array(z.string()),
-  description: z.string(),
-});
-
 export const CreateSessionDto = z.object({
   org_id: z.string(),
   user_id: z.string(),
@@ -106,6 +113,5 @@ export const CreateMessageDto = z.object({
   }),
 });
 
-export type CreateOrganizationDto = z.infer<typeof CreateOrganizationDto>;
 export type CreateSessionDto = z.infer<typeof CreateSessionDto>;
 export type CreateMessageDto = z.infer<typeof CreateMessageDto>;

@@ -27,8 +27,8 @@ export function close(): Promise<void> {
 }
 
 // Collection helpers
-export function orgs(): Collection {
-  return getDb().collection("orgs");
+export function organizations(): Collection {
+  return getDb().collection("organizations");
 }
 
 export function chatSessions(): Collection {

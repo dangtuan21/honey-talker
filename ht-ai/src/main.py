@@ -24,7 +24,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1)
     history: list[ChatMessage] = Field(default_factory=list)
-    school_id: str | None = Field(default=None)
+    org_id: str | None = Field(default=None)
 
 
 class ChatResponse(BaseModel):
@@ -41,11 +41,11 @@ def health() -> dict[str, str]:
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(req: ChatRequest) -> ChatResponse:
-    # Detect school_id (fallback to "default" if not provided)
-    school_id = req.school_id or "default"
+    # Detect org_id (fallback to "default" if not provided)
+    org_id = req.org_id or "default"
 
     # Retrieve relevant chunks
-    retrieved = retrieve_chunks(school_id, req.message, top_k=5)
+    retrieved = retrieve_chunks(org_id, req.message, top_k=5)
 
     # Build prompt with context
     prompt = build_contextual_prompt(settings.system_prompt, retrieved, req.message)
@@ -77,7 +77,7 @@ def ingest_knowledge(req: IngestKnowledgeRequest) -> Knowledge:
 
     doc = Knowledge(
         _id=f"doc_{uuid.uuid4().hex}",
-        school_id=req.school_id,
+        org_id=req.org_id,
         title=req.title,
         source=req.source,
         content=req.content,
@@ -99,7 +99,7 @@ def ingest_chunk(req: IngestChunkRequest) -> Chunk:
 
     chunk = Chunk(
         _id=f"chunk_{uuid.uuid4().hex}",
-        school_id=req.school_id,
+        org_id=req.org_id,
         document_id=req.document_id,
         content=req.content,
         embedding=embedding,

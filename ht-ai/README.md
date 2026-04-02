@@ -1,12 +1,12 @@
 # Honey Talker AI (ht-ai)
 
-A FastAPI-based AI chatbot service with RAG (Retrieval-Augmented Generation) capabilities for multi-school educational support.
+A FastAPI-based AI chatbot service with RAG (Retrieval-Augmented Generation) capabilities for multi-organization educational support.
 
 ## Features
 
 - **Chat Interface**: RESTful API for conversational AI interactions
 - **RAG Integration**: Retrieves relevant knowledge chunks for context-aware responses
-- **Multi-School Support**: School-specific knowledge bases and routing
+- **Multi-Organization Support**: Organization-specific knowledge bases and routing
 - **Knowledge Ingestion**: Admin endpoints for knowledge base management
 - **Vector Embeddings**: Semantic search using sentence transformers
 - **MongoDB Integration**: Persistent storage for knowledge and conversations
@@ -44,7 +44,12 @@ A FastAPI-based AI chatbot service with RAG (Retrieval-Augmented Generation) cap
 
 3. **Run the service**:
    ```bash
-   uvicorn main:app --reload --port 8000
+   ./start.sh
+   ```
+
+   Or manually:
+   ```bash
+   cd src && uvicorn main:app --reload --port 8000
    ```
 
 ## Configuration
@@ -63,8 +68,8 @@ import requests
 
 # Chat request
 response = requests.post("http://localhost:8000/chat", json={
-    "message": "What are the school hours?",
-    "school_id": "school_123",
+    "message": "What are the organization hours?",
+    "org_id": "org_123",
     "history": []
 })
 
@@ -74,7 +79,7 @@ print(response.json())
 ## Architecture
 
 - **RAG Pipeline**: Retrieves relevant chunks before generating responses
-- **School Isolation**: Each school has separate knowledge bases
+- **Organization Isolation**: Each organization has separate knowledge bases
 - **Embedding Search**: Uses vector similarity for knowledge retrieval
 - **Contextual Prompts**: Combines retrieved context with system prompts
 

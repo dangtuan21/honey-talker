@@ -1,7 +1,7 @@
 {
   "name": "talker-backend",
   "version": "1.0.0",
-  "description": "Multi-school chatbot backend with MongoDB",
+  "description": "Multi-organization chatbot backend with MongoDB",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,7 +9,7 @@
     "dev": "tsx watch src/index.ts",
     "clean": "rm -rf dist"
   },
-  "keywords": ["chatbot", "mongodb", "fastify", "typescript"],
+  "keywords": ["chatbot", "mongodb", "fastify", "typescript", "organization"],
   "author": "",
   "license": "MIT",
   "dependencies": {

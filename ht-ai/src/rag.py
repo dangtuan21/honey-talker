@@ -7,10 +7,10 @@ from embeddings import embed_text
 from schemas import RetrievedChunk
 
 
-def retrieve_chunks(school_id: str, query: str, top_k: int = 5) -> list[RetrievedChunk]:
-    """Retrieve top-k chunks for a school and query."""
+def retrieve_chunks(org_id: str, query: str, top_k: int = 5) -> list[RetrievedChunk]:
+    """Retrieve top-k chunks for an organization and query."""
     q_emb = embed_text(query)
-    results = vector_search(school_id, q_emb, limit=top_k)
+    results = vector_search(org_id, q_emb, limit=top_k)
     return [RetrievedChunk(**r) for r in results]
 
 
