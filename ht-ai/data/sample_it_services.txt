@@ -1,0 +1,251 @@
+IT Services and Support Guide
+
+WELCOME TO UNIVERSITY IT SERVICES
+
+This guide provides information about all IT services available to students, faculty, and staff.
+
+ACCOUNTS AND ACCESS
+
+University Account
+Every student receives a university account that provides access to:
+- Email (university.edu address)
+- Canvas learning management system
+- Library databases
+- Campus Wi-Fi
+- Computer labs
+- Printing services
+
+Account Activation:
+1. Go to https://activate.university.edu
+2. Enter your student ID number
+3. Set your password (minimum 12 characters, include uppercase, lowercase, numbers, and symbols)
+4. Set up security questions
+5. Download mobile authenticator app
+
+Password Reset Options:
+- Self-service password reset portal
+- IT Help Desk in person
+- Phone verification
+- Email verification
+
+CAMPUS TECHNOLOGY
+
+Wi-Fi Networks
+Available Wi-Fi networks:
+
+- EduNet (Secure): Primary network for students and faculty
+  - WPA3 encryption
+  - 802.1x authentication
+  - Recommended for all devices
+
+- EduNet-Guest (Open): For visitors and short-term access
+  - 2-hour time limit
+  - Lower bandwidth priority
+  - Requires email registration
+
+- EduNet-Device (IoT): For smart devices, gaming consoles
+  - MAC address registration required
+  - Limited internet access only
+
+Wi-Fi Coverage:
+- 100% coverage in all academic buildings
+- 95% coverage in residence halls
+- Outdoor areas around campus
+- Stadium and athletic facilities
+
+Computer Labs
+General access labs available 24/7 with valid student ID:
+
+Library Lab (Building A):
+- 50 workstations (Windows and Mac)
+- 10 collaboration stations
+- 3 printing stations
+- Assistive technology workstations
+- Quiet study area
+
+Science Lab (Building C):
+- 30 specialized workstations
+- Statistical software (SPSS, SAS, R)
+- Data visualization tools
+- High-performance computing access
+
+Business Lab (Building B):
+- 40 workstations
+- Financial software terminals
+- Bloomberg terminals (5 stations)
+- Video conferencing stations
+
+SOFTWARE AND APPLICATIONS
+
+University-Provided Software
+Free software available for all students:
+
+Microsoft Office 365:
+- Word, Excel, PowerPoint, Outlook
+- OneDrive cloud storage (1TB)
+- Teams collaboration platform
+- Online web versions
+
+Adobe Creative Cloud:
+- Photoshop, Illustrator, InDesign
+- Premiere Pro, After Effects
+- 100GB cloud storage
+- Limited to design students
+
+Specialized Software:
+- MATLAB (engineering students)
+- SPSS (social sciences)
+- AutoCAD (architecture students)
+- Mathematica (mathematics students)
+
+Software Download Portal:
+https://software.university.edu
+Login with university credentials
+Available for both Windows and Mac
+
+VIRTUAL PRIVATE NETWORK (VPN)
+
+VPN Access
+VPN provides secure access to university resources from off-campus:
+
+When to use VPN:
+- Accessing library databases from home
+- Connecting to campus servers
+- Using specialized software remotely
+- Secure Wi-Fi on public networks
+
+VPN Setup:
+1. Download VPN client from IT portal
+2. Install on your device
+3. Use university credentials to login
+4. Select appropriate connection profile
+
+VPN Support:
+- Setup guides available online
+- IT Help Desk assistance
+- Remote support via TeamViewer
+- Email support: vpn@university.edu
+
+PRINTING AND SCANNING
+
+Printing Services
+Campus-wide printing system:
+
+Print Locations:
+- Library (2nd floor): 10 printers
+- Student Center: 5 printers
+- Residence halls: 3 printers each
+- Computer labs: 2 printers each
+
+Printing Costs:
+- Black and white: $0.10 per page
+- Color printing: $0.50 per page
+- Large format (poster): $5.00 per square foot
+
+Payment Methods:
+- Student ID card (most convenient)
+- Campus cash account
+- Credit/debit card (online only)
+
+Printing Quotas:
+- Undergraduate students: 500 pages per semester
+- Graduate students: 1000 pages per semester
+- Faculty: Unlimited
+
+Scanning Services
+Free scanning available:
+
+- Library scanners (self-service)
+- Mobile scanning app
+- Email documents directly
+- Multiple format options (PDF, JPG, TIFF)
+
+SECURITY AND PRIVACY
+
+Cybersecurity
+University security measures:
+
+- Network firewalls and intrusion detection
+- Regular security updates and patches
+- Email spam and virus filtering
+- 24/7 security monitoring
+
+Student Responsibilities:
+- Use strong, unique passwords
+- Enable two-factor authentication
+- Report suspicious emails to phishing@university.edu
+- Keep software updated
+- Backup important data
+
+Data Privacy
+University complies with:
+- FERPA (student records)
+- GDPR (international students)
+- HIPAA (health information)
+- State privacy laws
+
+Data Classification:
+- Public: General university information
+- Internal: Operational information
+- Confidential: Sensitive personal data
+- Restricted: Highly sensitive data
+
+SUPPORT AND HELP DESK
+
+IT Help Desk
+Location: Library, 1st floor, Room 101
+Hours:
+- Monday-Thursday: 8:00 AM - 8:00 PM
+- Friday: 8:00 AM - 6:00 PM
+- Saturday: 10:00 AM - 4:00 PM
+- Sunday: 12:00 PM - 4:00 PM
+
+Contact Methods:
+- Phone: (555) 123-4567
+- Email: help@university.edu
+- Live chat: Available on IT website
+- Remote support: TeamViewer session
+
+Common Issues and Solutions:
+
+Cannot connect to Wi-Fi:
+1. Forget the network and reconnect
+2. Check if other devices can connect
+3. Restart your device
+4. Contact IT Help Desk
+
+Password issues:
+1. Use self-service password reset
+2. Contact Help Desk for account lockout
+3. Verify identity in person for security
+
+Software installation:
+1. Check system requirements
+2. Disable antivirus temporarily
+3. Run as administrator
+4. Contact software vendor support
+
+TRAINING AND WORKSHOPS
+
+IT Training Programs
+Free training available for students:
+
+Digital Literacy Workshops:
+- Basic computer skills
+- Microsoft Office essentials
+- Internet safety and privacy
+- Research and citation tools
+
+Advanced Technical Training:
+- Programming fundamentals
+- Data analysis with Excel
+- Database basics
+- Web development introduction
+
+Schedule and Registration:
+- Workshop calendar: https://training.university.edu
+- Online registration required
+- Limited to 20 participants per session
+- Certificate of completion provided
+
+For more information, visit the IT Services website: https://it.university.edu

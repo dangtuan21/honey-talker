@@ -1,0 +1,165 @@
+Research Guidelines and Procedures
+
+INTRODUCTION
+This document outlines the research procedures and guidelines for all students and faculty conducting research at our university.
+
+RESEARCH ETHICS
+
+Institutional Review Board (IRB)
+All research involving human subjects must be reviewed and approved by the Institutional Review Board.
+
+IRB Requirements:
+- Complete IRB application form
+- Submit informed consent forms
+- Provide recruitment materials
+- Include data security plan
+- Allow 4-6 weeks for review process
+
+Exempt Research Categories:
+- Educational research in established settings
+- Anonymous surveys with minimal risk
+- Existing data analysis (publicly available)
+- Program evaluation/quality improvement
+
+Plagiarism and Academic Integrity
+Researchers must maintain highest standards of academic integrity:
+
+- Proper citation of all sources
+- No self-plagiarism
+- Data accuracy and transparency
+- Authorship criteria must be met
+
+DATA MANAGEMENT
+
+Data Collection Procedures
+Standardized data collection protocols:
+
+1. Pre-research planning
+   - Define research questions
+   - Select appropriate methodology
+   - Prepare data collection instruments
+   - Train research assistants
+
+2. Data collection
+   - Use standardized forms
+   - Maintain consistent procedures
+   - Monitor data quality
+   - Address issues immediately
+
+3. Data storage
+   - Secure encrypted storage
+   - Regular backup procedures
+   - Access control protocols
+   - Retention schedule compliance
+
+Data Privacy and Confidentiality
+Protect participant privacy:
+
+- De-identify all personal data
+- Use participant codes instead of names
+- Store consent forms separately
+- Limit data access to research team
+- Follow GDPR/FERPA regulations
+
+PUBLICATION AND DISSEMINATION
+
+Authorship Guidelines
+Authorship criteria (ICMJE standards):
+1. Substantial contribution to conception/design
+2. Drafting or critical revision of work
+3. Final approval of version
+4. Accountability for all aspects
+
+Contributors not meeting all criteria should be acknowledged.
+
+Publication Process
+Standard publication workflow:
+
+1. Internal review by research team
+2. Department chair review
+3. IRB compliance verification
+4. Statistical review (if applicable)
+5. External peer review
+6. Publication decision
+
+Open Access Policy
+University supports open access publishing:
+
+- Institutional repository deposit required
+- Creative Commons licensing encouraged
+- Publication funds available
+- Funder compliance monitoring
+
+FUNDING AND GRANTS
+
+Grant Application Process
+Standard grant application timeline:
+
+- 3 months before deadline: Initial proposal
+- 2 months before: Budget development
+- 1 month before: Internal review
+- Submit: External application
+- 1-3 months: Review period
+
+Budget Categories
+Allowable expenses:
+- Personnel salaries and benefits
+- Equipment purchases
+- Supplies and materials
+- Travel expenses
+- Publication costs
+- Indirect costs (overhead)
+
+Unallowable expenses:
+- Entertainment costs
+- Personal expenses
+- Capital improvements
+- Lobbying activities
+
+COMPLIANCE AND MONITORING
+
+Research Compliance
+Required compliance training:
+
+- Human subjects protection (CITI)
+- Responsible conduct of research
+- Data security training
+- Conflict of interest disclosure
+
+Annual compliance reviews:
+- IRB protocol renewals
+- Data security audits
+- Financial compliance checks
+- Training record updates
+
+Research Misconduct
+Definition: Fabrication, falsification, or plagiarism in research.
+
+Reporting procedures:
+1. Report to Research Integrity Officer
+2. Preliminary assessment (10 days)
+3. Formal investigation (if needed)
+4. Committee review and recommendations
+5. Final determination and sanctions
+
+RESOURCES AND SUPPORT
+
+Research Support Services
+Available resources:
+
+- Statistical consulting
+- Grant writing assistance
+- Library research services
+- Technical support (software, equipment)
+- Publication assistance
+
+Contact Information
+Research Office:
+Location: Administration Building, Room 405
+Phone: (555) 123-4569
+Email: research@university.edu
+Website: www.university.edu/research
+
+Office Hours: Monday-Friday, 9:00 AM - 5:00 PM
+
+For research emergencies or urgent matters, contact the Research Integrity Officer at (555) 911-5556.

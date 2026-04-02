@@ -56,3 +56,12 @@ class IngestChunkRequest(BaseModel):
     document_id: str
     content: str
     metadata: ChunkMetadata
+
+
+class FileIngestResponse(BaseModel):
+    success: bool
+    knowledge_id: str | None = None
+    filename: str
+    extracted_length: int
+    title: str
+    message: str

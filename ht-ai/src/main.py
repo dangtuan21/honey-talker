@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 from typing import Any, Literal
+import tempfile
+import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from pydantic import BaseModel, Field
 
 from config import get_settings
 from llm import build_client, chat_completion
 from rag import retrieve_chunks, build_contextual_prompt
-from schemas import IngestKnowledgeRequest, IngestChunkRequest, Knowledge, Chunk
+from schemas import IngestKnowledgeRequest, IngestChunkRequest, Knowledge, Chunk, FileIngestResponse
+from file_processor import extract_text_from_file, validate_file_size, validate_file_type
 
 app = FastAPI(title="talker-ai")
 
@@ -118,3 +121,90 @@ def ingest_chunk(req: IngestChunkRequest) -> Chunk:
     from db import chunks
     chunks().insert_one(chunk.model_dump(by_alias=True))
     return chunk
+
+
+@app.post("/admin/ingest/file", response_model=FileIngestResponse)
+def ingest_file(
+    file: UploadFile = File(...),
+    org_id: str = Form(...),
+    title: str | None = Form(None)
+) -> FileIngestResponse:
+    """Ingest knowledge from uploaded file (PDF, DOCX, TXT)"""
+    from datetime import datetime
+    import uuid
+    from embeddings import embed_text
+    
+    # Validate file
+    if not validate_file_type(file.filename):
+        raise HTTPException(
+            status_code=400,
+            detail="Unsupported file type. Supported formats: .pdf, .docx, .txt"
+        )
+    
+    if not validate_file_size(file.size):
+        raise HTTPException(
+            status_code=400,
+            detail="File too large. Maximum size is 10MB"
+        )
+    
+    # Create temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(file.filename)[1]) as temp_file:
+        # Write uploaded content to temp file
+        content = file.file.read()
+        temp_file.write(content)
+        temp_file_path = temp_file.name
+    
+    try:
+        # Extract text from file
+        extracted_text = extract_text_from_file(temp_file_path)
+        
+        if not extracted_text.strip():
+            raise HTTPException(
+                status_code=400,
+                detail="No text could be extracted from the file"
+            )
+        
+        # Generate title if not provided
+        if not title:
+            title = os.path.splitext(file.filename)[0]
+        
+        # Create knowledge document
+        knowledge_id = f"doc_{uuid.uuid4().hex}"
+        embedding = embed_text(extracted_text)
+        
+        doc = Knowledge(
+            _id=knowledge_id,
+            org_id=org_id,
+            title=title,
+            source={"type": "file_upload", "filename": file.filename},
+            content=extracted_text,
+            status="processed",
+            created_at=datetime.utcnow(),
+        )
+        
+        # Add embedding and store
+        doc_dict = doc.model_dump(by_alias=True)
+        doc_dict["embedding"] = embedding
+        
+        from db import knowledge
+        knowledge().insert_one(doc_dict)
+        
+        return FileIngestResponse(
+            success=True,
+            knowledge_id=knowledge_id,
+            filename=file.filename,
+            extracted_length=len(extracted_text),
+            title=title,
+            message=f"Successfully processed {file.filename}"
+        )
+    
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing file: {str(e)}")
+    finally:
+        # Clean up temporary file
+        try:
+            os.unlink(temp_file_path)
+        except:
+            pass
