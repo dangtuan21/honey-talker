@@ -39,20 +39,26 @@ def chunks() -> Collection:
 def vector_search(org_id: str, query_vector: list[float], limit: int = 5) -> list[dict[str, Any]]:
     pipeline = [
         {
-            "$vectorSearch": {
-                "queryVector": query_vector,
-                "path": "embedding",
-                "numCandidates": 100,
-                "limit": limit,
-                "index": "default",  # make sure you have a Vector Search index named "default"
-                "filter": {"org_id": org_id},
+            "$search": {
+                "index": "vector_index_v2",
+                "knnBeta": {
+                    "vector": query_vector,
+                    "path": "embedding",
+                    "k": limit,
+                    "filter": {
+                        "equals": {
+                            "value": org_id,
+                            "path": "org_id"
+                        }
+                    }
+                }
             }
         },
         {
             "$project": {
                 "content": 1,
                 "metadata": 1,
-                "score": {"$meta": "vectorSearchScore"},
+                "score": {"$meta": "searchScore"},
             }
         },
     ]
