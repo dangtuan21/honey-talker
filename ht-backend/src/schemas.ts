@@ -115,3 +115,32 @@ export const CreateMessageDto = z.object({
 
 export type CreateSessionDto = z.infer<typeof CreateSessionDto>;
 export type CreateMessageDto = z.infer<typeof CreateMessageDto>;
+
+// Knowledge schema
+export const KnowledgeSchema = z.object({
+  _id: z.string(), // Store as string in the schema
+  title: z.string(),
+  content: z.string(),
+  org_id: z.string(),
+  source: z.object({
+    type: z.string(),
+    url: z.string().optional(),
+  }),
+  status: z.string().optional(),
+  ...timestamps.shape,
+});
+
+export type Knowledge = z.infer<typeof KnowledgeSchema>;
+
+// Request/Response DTOs for Knowledge
+export const CreateKnowledgeDto = z.object({
+  title: z.string(),
+  content: z.string(),
+  org_id: z.string(),
+  source: z.object({
+    type: z.string(),
+    url: z.string().optional(),
+  }),
+});
+
+export type CreateKnowledgeDto = z.infer<typeof CreateKnowledgeDto>;

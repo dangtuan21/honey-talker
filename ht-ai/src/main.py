@@ -247,11 +247,11 @@ def ingest_file(
         
         return FileIngestResponse(
             success=True,
-            knowledge_id=str(knowledge_id),
+            knowledge_id=knowledge_id,
             filename=file.filename,
             extracted_length=len(extracted_text),
             title=title,
-            message=f"Successfully processed {file.filename}",
+            message=f"Successfully processed file: {file.filename}",
             overwritten=False
         )
     

@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import { ObjectId } from "mongodb";
 import { chatSessions } from "../db";
 import { ChatSessionSchema, CreateSessionDto } from "../schemas";
 
@@ -13,7 +14,7 @@ export async function sessionsRoutes(fastify: FastifyInstance) {
   // GET /sessions/:id
   fastify.get("/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
-    const doc = await chatSessions().findOne({ _id: id });
+    const doc = await chatSessions().findOne({ _id: new ObjectId(id) });
     if (!doc) return reply.status(404).send({ error: "Session not found" });
     return ChatSessionSchema.parse(doc);
   });
@@ -22,19 +23,19 @@ export async function sessionsRoutes(fastify: FastifyInstance) {
   fastify.post("/", async (request, reply) => {
     const dto = CreateSessionDto.parse(request.body);
     const now = new Date().toISOString();
-    const session = {
+    const sessionData = {
       ...dto,
       created_at: now,
       updated_at: now,
     };
-    const result = await chatSessions().insertOne(session);
-    return { _id: session._id, ...session };
+    const result = await chatSessions().insertOne(sessionData);
+    return { _id: result.insertedId.toHexString(), ...sessionData };
   });
 
   // DELETE /sessions/:id
   fastify.delete("/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
-    const result = await chatSessions().deleteOne({ _id: id });
+    const result = await chatSessions().deleteOne({ _id: new ObjectId(id) });
     if (result.deletedCount === 0) return reply.status(404).send({ error: "Session not found" });
     return { deleted: true };
   });

@@ -38,3 +38,7 @@ export function chatSessions(): Collection {
 export function chatMessages(): Collection {
   return getDb().collection("chat_messages");
 }
+
+export function knowledge(): Collection {
+  return getDb().collection("knowledge");
+}
