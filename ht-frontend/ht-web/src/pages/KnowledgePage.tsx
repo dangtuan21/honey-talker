@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import KnowledgeDialog from '../components/KnowledgeDialog';
 import { User } from '../types/auth';
+import { DEMO_USERS, Role, userStorage } from '../common/constants';
 
 interface KnowledgePageProps {}
 
@@ -29,12 +30,14 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
   const navigate = useNavigate();
 
-  // Mock user for sidebar
-  const mockUser: User = {
-    id: '1',
-    username: 'admin1',
-    role: 'admin'
+  // Get user from sessionStorage, fallback to guest for development
+  const storedUser = userStorage.getUser();
+  const guestUser: User = {
+    id: DEMO_USERS.GUEST.id,
+    username: DEMO_USERS.GUEST.username,
+    role: Role.GUEST
   };
+  const user = storedUser || guestUser;
 
   // Form state
   const [formData, setFormData] = useState({
@@ -75,6 +78,11 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
       setMessage('');
       setMessageType('');
     }, 3000);
+  };
+
+  const handleLogout = () => {
+    userStorage.clearUser();
+    window.location.href = '/';
   };
 
   const handleAdd = () => {
@@ -198,7 +206,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <Sidebar user={mockUser} isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Sidebar user={user} isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} onLogout={handleLogout} />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">

@@ -1,7 +1,9 @@
+import { UserRole } from '../common/constants';
+
 export interface User {
   id: string;
   username: string;
-  role: 'admin' | 'user';
+  role: UserRole;
 }
 
 export interface LoginCredentials {

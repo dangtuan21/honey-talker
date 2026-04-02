@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { User } from '../types/auth';
+import { Role } from '../common/constants';
 
 interface SidebarProps {
   user: User | null;
   isOpen: boolean;
   onToggle: () => void;
+  onLogout?: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ user, isOpen, onToggle }) => {
+const Sidebar: React.FC<SidebarProps> = ({ user, isOpen, onToggle, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isAutoHidden, setIsAutoHidden] = useState(false);
@@ -133,7 +135,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user, isOpen, onToggle }) => {
             </li>
 
             {/* Admin Menu Items */}
-            {user?.role === 'admin' && (
+            {user?.role === Role.ADMIN && (
               <>
                 <li className={isAutoHidden && !isHovering ? 'hidden' : 'block'}>
                   <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
@@ -187,8 +189,12 @@ const Sidebar: React.FC<SidebarProps> = ({ user, isOpen, onToggle }) => {
         <div className={`absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 ${isAutoHidden && !isHovering ? 'hidden' : 'block'}`}>
           <button
             onClick={() => {
-              // Handle logout
-              window.location.reload();
+              if (onLogout) {
+                onLogout();
+              } else {
+                // Fallback: reload page if no logout handler provided
+                window.location.reload();
+              }
             }}
             className="w-full flex items-center space-x-3 px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
           >
