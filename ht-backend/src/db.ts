@@ -6,7 +6,11 @@ let db: Db | null = null;
 
 export async function connect(): Promise<MongoClient> {
   if (client) return Promise.resolve(client);
-  client = new MongoClient(env.MONGODB_URL);
+  client = new MongoClient(env.MONGODB_URL, {
+    ssl: true,
+    tlsAllowInvalidCertificates: true,
+    tlsAllowInvalidHostnames: true,
+  });
   await client.connect();
   db = client.db(env.DATABASE_NAME);
   console.log("Connected to MongoDB");

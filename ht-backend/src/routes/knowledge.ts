@@ -14,8 +14,8 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
       org_id: doc.org_id || '',
       source: doc.source || { type: 'manual' },
       status: doc.status || 'active',
-      created_at: doc.created_at ? doc.created_at.toISOString() : new Date().toISOString(),
-      updated_at: doc.updated_at ? doc.updated_at.toISOString() : new Date().toISOString()
+      created_at: doc.created_at || new Date().toISOString(),
+      updated_at: doc.updated_at || new Date().toISOString()
     }));
     return parsed;
   });
@@ -32,8 +32,8 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
       org_id: doc.org_id || '',
       source: doc.source || { type: 'manual' },
       status: doc.status || 'active',
-      created_at: doc.created_at ? doc.created_at.toISOString() : new Date().toISOString(),
-      updated_at: doc.updated_at ? doc.updated_at.toISOString() : new Date().toISOString()
+      created_at: doc.created_at || new Date().toISOString(),
+      updated_at: doc.updated_at || new Date().toISOString()
     };
   });
 
@@ -48,8 +48,8 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
       org_id: doc.org_id || '',
       source: doc.source || { type: 'manual' },
       status: doc.status || 'active',
-      created_at: doc.created_at ? doc.created_at.toISOString() : new Date().toISOString(),
-      updated_at: doc.updated_at ? doc.updated_at.toISOString() : new Date().toISOString()
+      created_at: doc.created_at || new Date().toISOString(),
+      updated_at: doc.updated_at || new Date().toISOString()
     }));
     return parsed;
   });

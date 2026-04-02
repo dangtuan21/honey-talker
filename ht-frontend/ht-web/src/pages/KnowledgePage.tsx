@@ -21,6 +21,7 @@ interface KnowledgeItem {
 
 const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   const [knowledgeItems, setKnowledgeItems] = useState<KnowledgeItem[]>([]);
+  const [organizations, setOrganizations] = useState<any[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMode, setDialogMode] = useState<'add' | 'edit' | 'delete'>('add');
@@ -43,13 +44,41 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    org_id: 'test_org'
+    org_id: ''
   });
 
-  // Fetch knowledge items on component mount
+  // Get default organization ID (first available organization)
+  const getDefaultOrgId = () => {
+    return organizations.length > 0 ? organizations[0]._id : '';
+  };
+
+  // Get organization name by ID
+  const getOrgName = (orgId: string) => {
+    const org = organizations.find(o => o._id === orgId);
+    return org ? org.name : orgId;
+  };
+
+  // Fetch knowledge items and organizations on component mount
   React.useEffect(() => {
     fetchKnowledgeItems();
+    fetchOrganizations();
   }, []);
+
+  const fetchOrganizations = async () => {
+    try {
+      const response = await fetch('http://localhost:3020/organizations');
+      if (response.ok) {
+        const data = await response.json();
+        setOrganizations(data);
+        // Set default org_id if not already set
+        if (!formData.org_id && data.length > 0) {
+          setFormData(prev => ({ ...prev, org_id: data[0]._id }));
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching organizations:', error);
+    }
+  };
 
   const fetchKnowledgeItems = async () => {
     try {
@@ -86,7 +115,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   };
 
   const handleAdd = () => {
-    setFormData({ title: '', content: '', org_id: 'test_org' });
+    setFormData({ title: '', content: '', org_id: getDefaultOrgId() });
     setSelectedItem(null);
     setDialogMode('add');
     setShowDialog(true);
@@ -164,7 +193,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
       }
 
       setShowDialog(false);
-      setFormData({ title: '', content: '', org_id: 'test_org' });
+      setFormData({ title: '', content: '', org_id: getDefaultOrgId() });
       setSelectedItem(null);
     } catch (error) {
       console.error('Error saving knowledge:', error);
@@ -200,7 +229,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   const handleCloseDialog = () => {
     setShowDialog(false);
     setSelectedItem(null);
-    setFormData({ title: '', content: '', org_id: 'test_org' });
+    setFormData({ title: '', content: '', org_id: getDefaultOrgId() });
   };
 
   return (
@@ -292,7 +321,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                          {item.org_id}
+                          {getOrgName(item.org_id)}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

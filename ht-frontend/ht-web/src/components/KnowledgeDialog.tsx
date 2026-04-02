@@ -1,4 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+interface Organization {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  knowledgeCount: number;
+}
 
 interface KnowledgeItem {
   id: string;
@@ -39,6 +47,29 @@ const KnowledgeDialog: React.FC<KnowledgeDialogProps> = ({
   formData,
   onFormDataChange
 }) => {
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+
+  // Fetch organizations on component mount
+  useEffect(() => {
+    fetchOrganizations();
+  }, []);
+
+  const fetchOrganizations = async () => {
+    try {
+      const response = await fetch('http://localhost:3020/organizations');
+      if (response.ok) {
+        const data = await response.json();
+        setOrganizations(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch organizations:', error);
+      // Set some default organizations for demo
+      setOrganizations([
+        { id: 'test_org', name: 'Test Organization', description: 'Default test organization', createdAt: new Date().toISOString(), knowledgeCount: 0 }
+      ]);
+    }
+  };
+
   if (!isOpen) return null;
 
   const isDeleteMode = mode === 'delete';
@@ -111,16 +142,20 @@ const KnowledgeDialog: React.FC<KnowledgeDialogProps> = ({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Organization ID
+                Organization
               </label>
-              <input
-                type="text"
+              <select
                 value={formData.org_id}
                 onChange={(e) => onFormDataChange({ ...formData, org_id: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="test_org"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
                 disabled={isLoading}
-              />
+              >
+                {organizations.map((org) => (
+                  <option key={org.id} value={org.id}>
+                    {org.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         )}

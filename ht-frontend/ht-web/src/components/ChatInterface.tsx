@@ -10,6 +10,14 @@ interface Message {
   timestamp: Date;
 }
 
+interface Organization {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  knowledgeCount: number;
+}
+
 interface ChatResponse {
   reply: string;
   model: string;
@@ -41,6 +49,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [orgId, setOrgId] = useState('test_org');
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -54,6 +63,27 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
       setUser(currentUser || guestUser);
     }
   }, [propUser]);
+
+  // Fetch organizations on component mount
+  useEffect(() => {
+    fetchOrganizations();
+  }, []);
+
+  const fetchOrganizations = async () => {
+    try {
+      const response = await fetch('http://localhost:3020/organizations');
+      if (response.ok) {
+        const data = await response.json();
+        setOrganizations(data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch organizations:', error);
+      // Set some default organizations for demo
+      setOrganizations([
+        { id: 'test_org', name: 'Test Organization', description: 'Default test organization', createdAt: new Date().toISOString(), knowledgeCount: 0 }
+      ]);
+    }
+  };
 
   const handleLogout = () => {
     setUser(null);
@@ -211,13 +241,17 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
           <div className="bg-white border-b border-gray-200 px-4 py-3">
             <div className="max-w-4xl mx-auto">
               <label className="block text-sm font-medium text-gray-700 mb-1">Organization</label>
-              <input
-                type="text"
+              <select
                 value={orgId}
                 onChange={(e) => setOrgId(e.target.value)}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter organization ID"
-              />
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white"
+              >
+                {organizations.map((org) => (
+                  <option key={org.id} value={org.id}>
+                    {org.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
