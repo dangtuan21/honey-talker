@@ -47,24 +47,41 @@ curl -X POST "http://localhost:8000/admin/ingest/file" \
   -F "org_id=test_org" \
   -F "title=Student Organizations Guide"
 
-# Upload university handbook
+# Upload the same file again (will overwrite existing content)
 curl -X POST "http://localhost:8000/admin/ingest/file" \
   -F "file=@data/sample_university_handbook.txt" \
   -F "org_id=test_org" \
   -F "title=University Student Handbook"
 
-# Upload research guidelines  
-curl -X POST "http://localhost:8000/admin/ingest/file" \
-  -F "file=@data/sample_research_guidelines.txt" \
-  -F "org_id=test_org" \
-  -F "title=Research Guidelines"
-
-# Upload IT services guide
-curl -X POST "http://localhost:8000/admin/ingest/file" \
-  -F "file=@data/sample_it_services.txt" \
-  -F "org_id=test_org" \
-  -F "title=IT Services Guide"
+# Response will show:
+# {
+#   "success": true,
+#   "knowledge_id": "doc_id",
+#   "filename": "sample_university_handbook.txt",
+#   "extracted_length": 4000,
+#   "title": "University Student Handbook",
+#   "message": "Successfully updated existing document: sample_university_handbook.txt",
+#   "overwritten": true
+# }
 ```
+
+## Duplicate Detection and Overwrite
+
+### How It Works:
+1. **Content Hashing**: Each file's content is hashed using SHA-256
+2. **Duplicate Detection**: System checks if same content hash exists for the organization
+3. **Overwrite**: If duplicate found, existing document is updated instead of creating new one
+4. **Single Result**: RAG searches return only one result for duplicate content
+
+### Benefits:
+- **No Duplicates**: Prevents knowledge base bloat
+- **Clean Search Results**: Single result per unique content
+- **Storage Efficiency**: Reduces storage and embedding costs
+- **Better User Experience**: Cleaner, more relevant responses
+
+### Response Fields:
+- `overwritten: false` - New document created
+- `overwritten: true` - Existing document updated
 
 ### Test Questions:
 After uploading, you can ask questions like:

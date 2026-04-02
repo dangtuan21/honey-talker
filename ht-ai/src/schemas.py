@@ -65,3 +65,4 @@ class FileIngestResponse(BaseModel):
     extracted_length: int
     title: str
     message: str
+    overwritten: bool = False  # Whether existing content was overwritten

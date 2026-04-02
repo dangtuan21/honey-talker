@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any, Literal
 import tempfile
 import os
+import hashlib
 
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from pydantic import BaseModel, Field
@@ -95,6 +96,7 @@ def ingest_knowledge(req: IngestKnowledgeRequest) -> Knowledge:
     # Add embedding to the document before storing
     doc_dict = doc.model_dump(by_alias=True)
     doc_dict["embedding"] = embedding
+    doc_dict["content_hash"] = hashlib.sha256(req.content.encode('utf-8')).hexdigest()
     
     from db import knowledge
     knowledge().insert_one(doc_dict)
@@ -164,11 +166,55 @@ def ingest_file(
                 detail="No text could be extracted from the file"
             )
         
+        # Generate content hash for duplicate detection
+        content_hash = hashlib.sha256(extracted_text.encode('utf-8')).hexdigest()
+        
         # Generate title if not provided
         if not title:
             title = os.path.splitext(file.filename)[0]
         
-        # Create knowledge document
+        # Check for existing content with same hash for this organization
+        from db import knowledge
+        existing_doc = knowledge().find_one({
+            "org_id": org_id,
+            "content_hash": content_hash
+        })
+        
+        if existing_doc:
+            # Update existing document
+            embedding = embed_text(extracted_text)
+            
+            updated_doc = Knowledge(
+                _id=existing_doc["_id"],
+                org_id=org_id,
+                title=title,
+                source={"type": "file_upload", "filename": file.filename},
+                content=extracted_text,
+                status="processed",
+                created_at=existing_doc["created_at"]
+            )
+            
+            # Add embedding and update
+            doc_dict = updated_doc.model_dump(by_alias=True)
+            doc_dict["embedding"] = embedding
+            doc_dict["content_hash"] = content_hash
+            
+            knowledge().replace_one(
+                {"_id": existing_doc["_id"]},
+                doc_dict
+            )
+            
+            return FileIngestResponse(
+                success=True,
+                knowledge_id=str(existing_doc["_id"]),
+                filename=file.filename,
+                extracted_length=len(extracted_text),
+                title=title,
+                message=f"Successfully updated existing document: {file.filename}",
+                overwritten=True
+            )
+        
+        # Create new knowledge document
         knowledge_id = f"doc_{uuid.uuid4().hex}"
         embedding = embed_text(extracted_text)
         
@@ -185,17 +231,18 @@ def ingest_file(
         # Add embedding and store
         doc_dict = doc.model_dump(by_alias=True)
         doc_dict["embedding"] = embedding
+        doc_dict["content_hash"] = content_hash
         
-        from db import knowledge
         knowledge().insert_one(doc_dict)
         
         return FileIngestResponse(
             success=True,
-            knowledge_id=knowledge_id,
+            knowledge_id=str(knowledge_id),
             filename=file.filename,
             extracted_length=len(extracted_text),
             title=title,
-            message=f"Successfully processed {file.filename}"
+            message=f"Successfully processed {file.filename}",
+            overwritten=False
         )
     
     except ValueError as e:
