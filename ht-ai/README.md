@@ -27,6 +27,8 @@ A FastAPI-based AI chatbot service with RAG (Retrieval-Augmented Generation) cap
 - `POST /chat` - Send messages and get AI responses with RAG context
 - `GET /health` - Health check endpoint
 
+**Base URL**: `http://localhost:8020`
+
 ### Admin (Knowledge Management)
 - `POST /admin/ingest/knowledge` - Ingest knowledge documents (auto-embedded)
 - `POST /admin/ingest/chunk` - Ingest pre-chunked knowledge pieces
@@ -69,7 +71,7 @@ The service uses the following environment variables (see `.env.example`):
 import requests
 
 # Chat request with RAG
-response = requests.post("http://localhost:8000/chat", json={
+response = requests.post("http://localhost:8020/chat", json={
     "message": "What are the library hours?",
     "org_id": "test_org",
     "history": []
@@ -84,7 +86,7 @@ print(f"Retrieved chunks: {result['retrieved_chunks']}")
 
 ### Document Ingestion (Recommended)
 ```bash
-curl -X POST "http://localhost:8000/admin/ingest/knowledge" \
+curl -X POST "http://localhost:8020/admin/ingest/knowledge" \
   -H "Content-Type: application/json" \
   -d '{
     "org_id": "test_org",
@@ -96,7 +98,7 @@ curl -X POST "http://localhost:8000/admin/ingest/knowledge" \
 
 ### Chunk Ingestion
 ```bash
-curl -X POST "http://localhost:8000/admin/ingest/chunk" \
+curl -X POST "http://localhost:8020/admin/ingest/chunk" \
   -H "Content-Type: application/json" \
   -d '{
     "org_id": "test_org",
@@ -104,6 +106,14 @@ curl -X POST "http://localhost:8000/admin/ingest/chunk" \
     "content": "Specific chunk of content",
     "metadata": {"type": "hours", "section": "library"}
   }'
+```
+
+### File Upload
+```bash
+curl -X POST "http://localhost:8020/admin/ingest/file" \
+  -F "file=@document.pdf" \
+  -F "org_id=test_org" \
+  -F "title=My Document"
 ```
 
 ## Architecture

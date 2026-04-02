@@ -44,13 +44,18 @@ pip install -r requirements.txt
 cd ../ht-backend
 npm install
 npm run dev
+
+# Start web service
+cd ../ht-web
+npm install
+npm run start
 ```
 
-## � API Endpoints
+## 📊 API Endpoints
 
-### ht-ai (Port 8000)
-- `GET /health` - Service health
-- `POST /chat` - AI chat with RAG
+### ht-ai (Port 8020)
+- `POST /chat` - Send messages and get AI responses
+- `GET /health` - Health check endpoint
 - `POST /admin/ingest/*` - Knowledge ingestion
 
 ### ht-backend (Port 3020)
@@ -58,6 +63,11 @@ npm run dev
 - `GET /organizations` - Organization CRUD
 - `GET /sessions` - Session management
 - `GET /messages` - Message persistence
+
+### ht-web (Port 4020)
+- React frontend for AI chat interface
+- Real-time messaging with RAG
+- Organization switching support
 
 ## 🔍 Vector Search
 

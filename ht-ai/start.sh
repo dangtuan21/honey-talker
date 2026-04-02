@@ -15,15 +15,15 @@ kill_port() {
     fi
 }
 
-# Kill existing processes on ports 8000 and 8001
+# Kill existing processes on ports 8020 and 8021
 echo "Checking for existing processes..."
-kill_port 8000
-kill_port 8001
+kill_port 8020
+kill_port 8021
 
-# Find an available port: try 8000 first, then 8001
-PORT=8000
+# Find an available port: try 8020 first, then 8021
+PORT=8020
 if lsof -Pi :$PORT -sTCP:LISTEN -t >/dev/null 2>&1; then
-    PORT=8001
+    PORT=8021
 fi
 
 echo "Starting FastAPI server on port $PORT..."

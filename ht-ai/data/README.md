@@ -36,19 +36,19 @@ This folder contains sample documents to test the file upload knowledge ingestio
 ### Upload via curl:
 ```bash
 # Upload PDF file (campus facilities)
-curl -X POST "http://localhost:8000/admin/ingest/file" \
+curl -X POST "http://localhost:8020/admin/ingest/file" \
   -F "file=@data/sample_campus_facilities.pdf" \
   -F "org_id=test_org" \
   -F "title=Campus Facilities Guide"
 
 # Upload DOCX file (student organizations)
-curl -X POST "http://localhost:8000/admin/ingest/file" \
+curl -X POST "http://localhost:8020/admin/ingest/file" \
   -F "file=@data/sample_student_organizations.docx" \
   -F "org_id=test_org" \
   -F "title=Student Organizations Guide"
 
 # Upload the same file again (will overwrite existing content)
-curl -X POST "http://localhost:8000/admin/ingest/file" \
+curl -X POST "http://localhost:8020/admin/ingest/file" \
   -F "file=@data/sample_university_handbook.txt" \
   -F "org_id=test_org" \
   -F "title=University Student Handbook"
