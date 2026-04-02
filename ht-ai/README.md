@@ -65,6 +65,45 @@ The service uses the following environment variables (see `.env.example`):
 - `MONGODB_URL`: MongoDB Atlas connection string
 - `SYSTEM_PROMPT`: System prompt for AI behavior
 
+## Sample Questions
+
+Based on the sample documents available in the `data/` folder, you can ask questions like:
+
+### 📚 University Handbook
+- "What are the tuition fees?"
+- "What is the attendance policy?"
+- "How do I contact career services?"
+- "Where is the health center located?"
+- "What are the dining options on campus?"
+
+### 🏢 Campus Facilities (PDF)
+- "What are the recreation center hours?"
+- "How do I access the swimming pool?"
+- "Where is the main library located?"
+- "What dining options are available?"
+- "What athletic facilities are available?"
+
+### 👥 Student Organizations (DOCX)
+- "How do I join the engineering club?"
+- "What cultural organizations are available?"
+- "When is the drama club meeting?"
+- "How can I start a new student organization?"
+- "What sports clubs are available?"
+
+### 🔬 Research Guidelines
+- "What are the IRB requirements?"
+- "How do I report research misconduct?"
+- "What are the authorship guidelines?"
+- "What expenses are not allowed in grants?"
+- "What is the research ethics policy?"
+
+### 💻 IT Services
+- "How do I connect to campus Wi-Fi?"
+- "What software is available for free?"
+- "How much does printing cost?"
+- "When is the IT Help Desk open?"
+- "How do I reset my password?"
+
 ## Usage Example
 
 ```python

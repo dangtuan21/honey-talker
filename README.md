@@ -2,7 +2,39 @@
 
 A multi-organization AI chatbot system with RAG (Retrieval-Augmented Generation) capabilities.
 
-## 🏗️ Architecture
+## � Sample Questions
+
+The system comes with pre-loaded sample documents. Try these questions:
+
+### 📚 University Services
+- "What are the library hours?"
+- "How much is tuition?"
+- "What is the attendance policy?"
+- "How do I contact career services?"
+
+### 🏢 Campus Facilities  
+- "What are the recreation center hours?"
+- "How do I access the swimming pool?"
+- "What athletic facilities are available?"
+
+### 👥 Student Organizations
+- "How do I join the engineering club?"
+- "What cultural organizations are available?"
+- "How can I start a new student organization?"
+
+### 🔬 Research & Academics
+- "What are the IRB requirements?"
+- "How do I report research misconduct?"
+- "What are the authorship guidelines?"
+
+### 💻 IT Services
+- "How do I connect to campus Wi-Fi?"
+- "What software is available for free?"
+- "How much does printing cost?"
+
+**Access the web interface at http://localhost:4020 and use organization ID `test_org` to test!**
+
+## �🏗️ Architecture
 
 ```
 honey-talker/

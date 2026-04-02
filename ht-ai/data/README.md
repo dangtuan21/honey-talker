@@ -2,6 +2,37 @@
 
 This folder contains sample documents to test the file upload knowledge ingestion functionality.
 
+## 🎯 Quick Test Questions
+
+After uploading these files, try these questions to test RAG functionality:
+
+### University Handbook (TXT)
+- "What are the tuition fees?"
+- "What is the attendance policy?"
+- "How do I contact career services?"
+
+### Campus Facilities (PDF)
+- "What are the recreation center hours?"
+- "How do I access the swimming pool?"
+- "Where is the main library located?"
+
+### Student Organizations (DOCX)
+- "How do I join the engineering club?"
+- "What cultural organizations are available?"
+- "How can I start a new student organization?"
+
+### Research Guidelines (TXT)
+- "What are the IRB requirements?"
+- "How do I report research misconduct?"
+- "What are the authorship guidelines?"
+
+### IT Services (TXT)
+- "How do I connect to campus Wi-Fi?"
+- "What software is available for free?"
+- "How much does printing cost?"
+
+**Test at**: http://localhost:4020 (web interface) or http://localhost:8020 (API)
+
 ## Files Available
 
 ### 1. `sample_campus_facilities.pdf` (NEW)

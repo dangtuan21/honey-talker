@@ -6,6 +6,7 @@ import os
 import hashlib
 
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from config import get_settings
@@ -15,6 +16,15 @@ from schemas import IngestKnowledgeRequest, IngestChunkRequest, Knowledge, Chunk
 from file_processor import extract_text_from_file, validate_file_size, validate_file_type
 
 app = FastAPI(title="talker-ai")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4020", "http://127.0.0.1:4020"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 settings = get_settings()
 client = build_client(settings)

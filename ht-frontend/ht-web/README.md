@@ -53,10 +53,43 @@ The app connects to the Honey Talker AI backend at `http://localhost:8020`. Make
 
 ## Usage
 
-1. **Set Organization ID**: Enter your organization ID in the input field
+1. **Set Organization ID**: Enter your organization ID in the input field (use `test_org` for demo)
 2. **Send Messages**: Type your question and press Enter or click Send
 3. **View Responses**: AI responses appear in the chat interface
 4. **Real-time Updates**: Messages appear instantly with timestamps
+
+## Sample Questions
+
+Try these questions to test the RAG functionality:
+
+### 📚 University Services
+- "What are the library hours?"
+- "How much is tuition?"
+- "Where is the health center located?"
+- "What dining options are available?"
+
+### 🏢 Campus Facilities
+- "What are the recreation center hours?"
+- "How do I access the swimming pool?"
+- "What athletic facilities are available?"
+
+### 👥 Student Activities
+- "How do I join the engineering club?"
+- "What cultural organizations are available?"
+- "How can I start a new student organization?"
+
+### 🔬 Academic Research
+- "What are the IRB requirements?"
+- "How do I report research misconduct?"
+- "What are the authorship guidelines?"
+
+### 💻 IT Support
+- "How do I connect to campus Wi-Fi?"
+- "What software is available for free?"
+- "How much does printing cost?"
+- "When is the IT Help Desk open?"
+
+**The AI will retrieve relevant information from the knowledge base and provide accurate answers!**
 
 ## API Integration
 
