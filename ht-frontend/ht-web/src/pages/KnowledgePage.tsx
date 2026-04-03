@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import KnowledgeDialog from '../components/KnowledgeDialog';
+import UploadKnowledgeDialog from '../components/UploadKnowledgeDialog';
 import { User } from '../types/auth';
 import { DEMO_USERS, Role, userStorage } from '../common/constants';
 
@@ -30,6 +31,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
   const [selectedOrgFilter, setSelectedOrgFilter] = useState<string>('all');
+  const [showUploadDialog, setShowUploadDialog] = useState(false);
   const navigate = useNavigate();
 
   // Get user from sessionStorage, fallback to guest for development
@@ -126,10 +128,38 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   };
 
   const handleAdd = () => {
-    setFormData({ title: '', content: '', org_id: getDefaultOrgId() });
     setSelectedItem(null);
+    setFormData({ title: '', content: '', org_id: getDefaultOrgId() });
     setDialogMode('add');
     setShowDialog(true);
+  };
+
+  const handleFileUpload = async (file: File, orgId: string) => {
+    setIsLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('org_id', orgId);
+      formData.append('title', file.name);
+
+      const response = await fetch('http://localhost:8020/admin/ingest/file', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        const orgName = getOrgName(orgId);
+        showMessage(`File "${file.name}" uploaded and processed successfully to ${orgName}!`, 'success');
+        await fetchKnowledgeItems(); // Refresh the list
+      } else {
+        throw new Error('Failed to upload file');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      showMessage('Error uploading file. Please try again.', 'error');
+    }
+    setIsLoading(false);
   };
 
   const handleEdit = (item: KnowledgeItem) => {
@@ -306,6 +336,16 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
                 </svg>
                 <span>Add Knowledge</span>
               </button>
+              
+              <button
+                onClick={() => setShowUploadDialog(true)}
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors flex items-center space-x-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <span>Upload Knowledge File</span>
+              </button>
             </div>
 
             {/* Table */}
@@ -388,6 +428,15 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
         knowledgeItem={selectedItem}
         formData={formData}
         onFormDataChange={setFormData}
+      />
+
+      {/* Upload Knowledge Dialog */}
+      <UploadKnowledgeDialog
+        isOpen={showUploadDialog}
+        onClose={() => setShowUploadDialog(false)}
+        onUpload={handleFileUpload}
+        isLoading={isLoading}
+        organizations={organizations}
       />
     </div>
   );
