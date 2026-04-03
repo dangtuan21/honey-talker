@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Organization {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   createdAt: string;
@@ -67,7 +67,7 @@ const OrganizationDialog: React.FC<OrganizationDialogProps> = ({
               <h4 className="font-medium text-gray-900 mb-2">Organization Details:</h4>
               <div className="space-y-1 text-sm">
                 <div><strong>Name:</strong> {organization.name}</div>
-                <div><strong>ID:</strong> {organization.id}</div>
+                <div><strong>ID:</strong> {organization._id}</div>
                 <div><strong>Description:</strong> {organization.description || 'No description'}</div>
                 <div><strong>Knowledge Items:</strong> {organization.knowledgeCount}</div>
                 <div><strong>Created:</strong> {new Date(organization.createdAt).toLocaleDateString()}</div>

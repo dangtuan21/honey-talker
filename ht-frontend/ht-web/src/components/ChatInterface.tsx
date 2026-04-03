@@ -11,7 +11,7 @@ interface Message {
 }
 
 interface Organization {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   createdAt: string;
@@ -84,7 +84,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
       console.error('Failed to fetch organizations:', error);
       // Set some default organizations for demo
       setOrganizations([
-        { id: 'test_org', name: 'Test Organization', description: 'Default test organization', createdAt: new Date().toISOString(), knowledgeCount: 0 }
+        { _id: 'test_org', name: 'Test Organization', description: 'Default test organization', createdAt: new Date().toISOString(), knowledgeCount: 0 }
       ]);
     }
   };
@@ -245,7 +245,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
                 className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white"
               >
                 {organizations.map((org) => (
-                  <option key={org.id} value={org.id}>
+                  <option key={org._id} value={org._id}>
                     {org.name}
                   </option>
                 ))}

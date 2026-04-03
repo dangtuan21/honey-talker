@@ -8,7 +8,7 @@ import { DEMO_USERS, Role, userStorage } from '../common/constants';
 interface OrganizationPageProps {}
 
 interface Organization {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   createdAt: string;
@@ -114,13 +114,13 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
       
       if (dialogMode === 'edit' && selectedOrg) {
         // Update existing organization
-        response = await fetch(`http://localhost:3020/organizations/${selectedOrg.id}`, {
+        response = await fetch(`http://localhost:3020/organizations/${selectedOrg._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            _id: selectedOrg.id,
+            _id: selectedOrg._id,
             name: formData.name,
             description: formData.description,
             aliases: [],
@@ -176,7 +176,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:3020/organizations/${selectedOrg.id}`, {
+      const response = await fetch(`http://localhost:3020/organizations/${selectedOrg._id}`, {
         method: 'DELETE'
       });
       
@@ -270,7 +270,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {organizations.map((org) => (
-                    <tr key={`org-${org.id}`} className="hover:bg-gray-50">
+                    <tr key={`org-${org._id}`} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{org.name}</div>
                       </td>
