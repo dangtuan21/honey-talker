@@ -370,11 +370,37 @@
         </div>
     </footer>
 
-    <!-- Chat Widget Placeholder (for future integration) -->
-    <div id="chat-widget-placeholder" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <button class="gradient-green text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:shadow-xl transition-all transform hover:scale-110">
-            <i class="fas fa-comments text-xl"></i>
-        </button>
-    </div>
+    <!-- Honey Talker Widget -->
+    <script src="/honey-talker-widget.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing widget...');
+            
+            // Remove placeholder if it exists
+            const placeholder = document.getElementById('chat-widget-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+            
+            // Check if widget is available
+            if (typeof HoneyTalkerWidget !== 'undefined') {
+                console.log('Widget found, initializing...');
+                try {
+                    HoneyTalkerWidget.init({
+                        theme: 'economics',
+                        position: 'bottom-right',
+                        welcomeMessage: 'Xin chào! Tôi là trợ lý AI Honey Talker của Đại học Kinh tế Quốc dân.',
+                        apiUrl: 'http://localhost:8020/chat',
+                        orgId: '69cff40f084e71ebda388213' // Economics University org ID
+                    });
+                    console.log('Widget initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing widget:', error);
+                }
+            } else {
+                console.error('HoneyTalkerWidget not found!');
+            }
+        });
+    </script>
 </body>
 </html>

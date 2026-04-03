@@ -3,6 +3,13 @@ import { ObjectId } from "mongodb";
 import { knowledge } from "../db";
 import { KnowledgeSchema, CreateKnowledgeDto } from "../schemas";
 
+function formatDate(date: any): string {
+  if (!date) return new Date().toISOString();
+  if (typeof date === 'string') return date;
+  if (typeof date === 'object' && date.toISOString) return date.toISOString();
+  return new Date().toISOString();
+}
+
 export async function knowledgeRoutes(fastify: FastifyInstance) {
   // GET /knowledge
   fastify.get("/", async (request, reply) => {
@@ -14,8 +21,8 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
       org_id: doc.org_id || '',
       source: doc.source || { type: 'manual' },
       status: doc.status || 'active',
-      created_at: doc.created_at || new Date().toISOString(),
-      updated_at: doc.updated_at || new Date().toISOString()
+      created_at: formatDate(doc.created_at),
+      updated_at: formatDate(doc.updated_at)
     }));
     return parsed;
   });
@@ -32,8 +39,8 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
       org_id: doc.org_id || '',
       source: doc.source || { type: 'manual' },
       status: doc.status || 'active',
-      created_at: doc.created_at || new Date().toISOString(),
-      updated_at: doc.updated_at || new Date().toISOString()
+      created_at: formatDate(doc.created_at),
+      updated_at: formatDate(doc.updated_at)
     };
   });
 
@@ -48,8 +55,8 @@ export async function knowledgeRoutes(fastify: FastifyInstance) {
       org_id: doc.org_id || '',
       source: doc.source || { type: 'manual' },
       status: doc.status || 'active',
-      created_at: doc.created_at || new Date().toISOString(),
-      updated_at: doc.updated_at || new Date().toISOString()
+      created_at: formatDate(doc.created_at),
+      updated_at: formatDate(doc.updated_at)
     }));
     return parsed;
   });

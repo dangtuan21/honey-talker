@@ -3,8 +3,8 @@ import { ObjectId } from "mongodb";
 
 // Base timestamps
 const timestamps = z.object({
-  created_at: z.string().datetime(),
-  updated_at: z.string().datetime(),
+  created_at: z.string().optional(),
+  updated_at: z.string().optional(),
 });
 
 // Helper to coerce ObjectId to string
