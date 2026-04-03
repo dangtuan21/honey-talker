@@ -19,6 +19,7 @@ class Knowledge(BaseModel):
     content: str
     status: str  # e.g., "processed", "pending"
     created_at: datetime
+    embedding: list[float] | None = None  # Added embedding field
 
 
 class ChunkMetadata(BaseModel):

@@ -59,7 +59,7 @@ def chat(req: ChatRequest) -> ChatResponse:
     org_id = req.org_id or "default"
 
     # Retrieve relevant chunks
-    retrieved = retrieve_chunks(org_id, req.message, top_k=5)
+    retrieved = retrieve_chunks(org_id, req.message, top_k=10)
 
     # Build prompt with context
     prompt = build_contextual_prompt(settings.system_prompt, retrieved, req.message)
@@ -101,11 +101,11 @@ def ingest_knowledge(req: IngestKnowledgeRequest) -> Knowledge:
         content=req.content,
         status="processed",
         created_at=datetime.utcnow(),
+        embedding=embedding  # Include embedding directly
     )
     
-    # Add embedding to the document before storing
+    # Add content hash and store
     doc_dict = doc.model_dump(by_alias=True)
-    doc_dict["embedding"] = embedding
     doc_dict["content_hash"] = hashlib.sha256(req.content.encode('utf-8')).hexdigest()
     
     from db import knowledge
@@ -201,12 +201,12 @@ def ingest_file(
                 source={"type": "file_upload", "filename": file.filename},
                 content=extracted_text,
                 status="processed",
-                created_at=existing_doc["created_at"]
+                created_at=existing_doc["created_at"],
+                embedding=embedding  # Include embedding directly
             )
             
-            # Add embedding and update
+            # Add content hash and update
             doc_dict = updated_doc.model_dump(by_alias=True)
-            doc_dict["embedding"] = embedding
             doc_dict["content_hash"] = content_hash
             
             knowledge().replace_one(
@@ -236,11 +236,11 @@ def ingest_file(
             content=extracted_text,
             status="processed",
             created_at=datetime.utcnow(),
+            embedding=embedding  # Include embedding directly
         )
         
-        # Add embedding and store
+        # Add content hash and store
         doc_dict = doc.model_dump(by_alias=True)
-        doc_dict["embedding"] = embedding
         doc_dict["content_hash"] = content_hash
         
         knowledge().insert_one(doc_dict)

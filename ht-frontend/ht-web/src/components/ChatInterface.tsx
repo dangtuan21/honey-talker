@@ -75,6 +75,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
       if (response.ok) {
         const data = await response.json();
         setOrganizations(data);
+        // Auto-select the first organization if available
+        if (data.length > 0) {
+          setOrgId(data[0]._id);
+        }
       }
     } catch (error) {
       console.error('Failed to fetch organizations:', error);
