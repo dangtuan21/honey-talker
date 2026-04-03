@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from dotenv import load_dotenv
 
 
-UNIVERSITY_SYSTEM_PROMPT = (
+SYSTEM_PROMPT = (
     "You are a helpful and professional university receptionist AI. "
     "Your role is to assist students with exact information about the university retrived from the database."
     "Do not provide information that is not in the database."
@@ -33,7 +33,7 @@ def get_settings() -> Settings:
 
     openai_base_url = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
     openai_model = os.getenv("OPENAI_MODEL", "stepfun/step-3.5-flash:free")
-    system_prompt = os.getenv("SYSTEM_PROMPT", UNIVERSITY_SYSTEM_PROMPT)
+    system_prompt = os.getenv("SYSTEM_PROMPT", SYSTEM_PROMPT)
     mongodb_url = os.getenv("MONGODB_URL")
     if not mongodb_url:
         raise RuntimeError("Missing MONGODB_URL in environment")
