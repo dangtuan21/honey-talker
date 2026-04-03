@@ -50,7 +50,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
   const [isLoading, setIsLoading] = useState(false);
   const [orgId, setOrgId] = useState('test_org');
   const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const navigate = useNavigate();
 
   // Sync user state with prop changes
@@ -180,29 +180,23 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar - Only show if enabled and for non-guest users */}
-      {showSidebar && user.role !== Role.GUEST && (
+      {/* Sidebar - Show if enabled */}
+      {showSidebar && (
         <Sidebar user={user} isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} onLogout={handleLogout} />
       )}
 
-      {/* Main Content - Full width if no sidebar, with sidebar otherwise */}
-      <div className={`${!showSidebar || user.role === Role.GUEST ? 'w-full' : 'flex-1'} flex flex-col`}>
+      {/* Main Content */}
+      <div className={`flex-1 flex flex-col min-w-0`}>
+        {/* Add margin-left when sidebar is open to prevent content overlap */}
+        <div className={`${sidebarOpen && showSidebar ? 'lg:ml-64' : ''} transition-all duration-300 flex-1 flex flex-col`}>
         {/* Header */}
         <div className="bg-white shadow-sm border-b border-gray-200">
           <div className="px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                {/* Menu Toggle Button - Only show if sidebar is enabled and for non-guest users */}
-                {showSidebar && user.role !== Role.GUEST && (
-                  <button
-                    onClick={() => setSidebarOpen(!sidebarOpen)}
-                    className="p-2 rounded-md hover:bg-gray-100 transition-colors"
-                  >
-                    <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                  </button>
-                )}
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">AI Assistant</h1>
+                </div>
               </div>
               
               {user && user.role !== Role.GUEST && (
@@ -335,6 +329,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
