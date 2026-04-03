@@ -160,6 +160,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
     }
   };
 
+  const handleNewChat = () => {
+    setMessages([]);
+    setInputMessage('');
+  };
+
   // Show login page only if user is null (not for guests)
   if (!user) {
     return (
@@ -319,6 +324,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
                   placeholder="Type your message..."
                   disabled={isLoading}
                 />
+                <button
+                  onClick={handleNewChat}
+                  disabled={isLoading}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  title="Start new chat"
+                >
+                  New
+                </button>
                 <button
                   onClick={sendMessage}
                   disabled={isLoading || !inputMessage.trim()}

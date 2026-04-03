@@ -29,6 +29,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
+  const [selectedOrgFilter, setSelectedOrgFilter] = useState<string>('all');
   const navigate = useNavigate();
 
   // Get user from sessionStorage, fallback to guest for development
@@ -64,6 +65,11 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
     fetchOrganizations();
   }, []);
 
+  // Refetch knowledge items when organization filter changes
+  React.useEffect(() => {
+    fetchKnowledgeItems();
+  }, [selectedOrgFilter]);
+
   const fetchOrganizations = async () => {
     try {
       const response = await fetch('http://localhost:3020/organizations');
@@ -82,14 +88,19 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
 
   const fetchKnowledgeItems = async () => {
     try {
-      const response = await fetch('http://localhost:3020/knowledge');
+      let url = 'http://localhost:3020/knowledge';
+      if (selectedOrgFilter !== 'all') {
+        url = `http://localhost:3020/knowledge/by-org/${selectedOrgFilter}`;
+      }
+      
+      const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
         setKnowledgeItems(data.map((item: any) => ({
           id: item._id,
           title: item.title,
           content: item.content,
-          source: item.source || { type: 'manual' },
+          source: item.source,
           created_at: item.created_at,
           org_id: item.org_id
         })));
@@ -247,6 +258,23 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Knowledge</h1>
                 </div>
+              </div>
+              
+              {/* Organization Filter Dropdown */}
+              <div className="flex items-center space-x-2">
+                <label className="text-sm font-medium text-gray-700">Filter:</label>
+                <select
+                  value={selectedOrgFilter}
+                  onChange={(e) => setSelectedOrgFilter(e.target.value)}
+                  className="block px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white"
+                >
+                  <option value="all">All Organizations</option>
+                  {organizations.map((org) => (
+                    <option key={org._id} value={org._id}>
+                      {org.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
