@@ -30,7 +30,7 @@ The Honey Talker Widget can be easily embedded into any static HTML website to p
                HoneyTalkerWidget.init({
                    theme: 'default',
                    position: 'bottom-right',
-                   apiUrl: 'http://localhost:8020/chat',
+                   apiUrl: 'your-honey-talker-chat-url',
                    orgId: 'your-org-id'
                });
            });
@@ -43,43 +43,10 @@ The Honey Talker Widget can be easily embedded into any static HTML website to p
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `theme` | string | `'default'` | Theme: `'default'`, `'economics'`, `'tech'`, `'law'` |
 | `position` | string | `'bottom-right'` | Button position: `'bottom-right'`, `'bottom-left'` |
-| `apiUrl` | string | `'http://localhost:8020/chat'` | Chat API endpoint |
-| `orgId` | string | `'test_org'` | Organization ID for knowledge base |
-| `welcomeMessage` | string | Theme-specific | Custom welcome message |
-
-### 🎨 Themes
-
-#### Economics University (Green)
-```javascript
-HoneyTalkerWidget.init({
-    theme: 'economics',
-    position: 'bottom-right',
-    apiUrl: 'http://localhost:8020/chat',
-    orgId: '69cff40f084e71ebda388213' // Economics University
-});
-```
-
-#### Tech University (Blue-Purple)
-```javascript
-HoneyTalkerWidget.init({
-    theme: 'tech',
-    position: 'bottom-left',
-    apiUrl: 'http://localhost:8020/chat',
-    orgId: 'your-tech-org-id'
-});
-```
-
-#### Law University (Red-Yellow)
-```javascript
-HoneyTalkerWidget.init({
-    theme: 'law',
-    position: 'bottom-right',
-    apiUrl: 'http://localhost:8020/chat',
-    orgId: '69cebe3e552a46abd02c92ab' // University of Law
-});
-```
+| `apiUrl` | string | `'your-honey-talker-chat-url'` | Chat API endpoint |
+| `orgId` | string | `'your-org-id'` | Organization ID for knowledge base |
+| `welcomeMessage` | string | `'Hello! I\'m your AI assistant. How can I help you today?'` | Custom welcome message |
 
 ### 📋 Complete Example
 
@@ -122,11 +89,10 @@ HoneyTalkerWidget.init({
             if (typeof HoneyTalkerWidget !== 'undefined') {
                 try {
                     HoneyTalkerWidget.init({
-                        theme: 'economics',
                         position: 'bottom-right',
                         welcomeMessage: 'Hello! I\'m your AI assistant. How can I help you today?',
-                        apiUrl: 'http://localhost:8020/chat',
-                        orgId: '69cff40f084e71ebda388213'
+                        apiUrl: 'your-honey-talker-chat-url',
+                        orgId: 'your-org-id'
                     });
                     console.log('Honey Talker Widget initialized successfully');
                 } catch (error) {
@@ -141,47 +107,10 @@ HoneyTalkerWidget.init({
 </html>
 ```
 
-### 🔧 Advanced Usage
-
-#### Dynamic Configuration
-```javascript
-// Update widget configuration
-HoneyTalkerWidget.updateConfig({
-    theme: 'tech',
-    welcomeMessage: 'New welcome message!'
-});
-
-// Get current configuration
-const config = HoneyTalkerWidget.getConfig();
-
-// Check if widget is initialized
-if (HoneyTalkerWidget.isInitialized()) {
-    console.log('Widget is ready');
-}
-
-// Destroy widget
-HoneyTalkerWidget.destroy();
-```
-
-#### Auto-Initialize via Global Config
-```html
-<script>
-    // Set global config before loading widget
-    window.HoneyTalkerWidgetConfig = {
-        theme: 'economics',
-        position: 'bottom-right',
-        apiUrl: 'http://localhost:8020/chat',
-        orgId: '69cff40f084e71ebda388213'
-    };
-</script>
-<script src="/honey-talker-widget.js"></script>
-<!-- Widget will auto-initialize with the config above -->
-```
-
 ### 🌐 Deployment
 
 #### Development
-- Widget connects to `http://localhost:8020/chat`
+- Widget connects to `your-honey-talker-chat-url`
 - Requires CORS configuration on the API server
 
 #### Production
@@ -192,9 +121,8 @@ HoneyTalkerWidget.destroy();
 ```javascript
 // Production example
 HoneyTalkerWidget.init({
-    theme: 'economics',
-    apiUrl: 'https://your-api.com/chat',
-    orgId: 'your-production-org-id'
+    apiUrl: 'https://your-honey-talker-chat-url',
+    orgId: 'your-org-id'
 });
 ```
 
@@ -243,33 +171,37 @@ No additional dependencies required on your website!
 
 ### �🎯 Sample Questions
 
-The system comes with pre-loaded sample documents. Try these questions:
+The system can answer questions based on your organization's knowledge base. Examples:
 
-### 📚 University Services
-- "What are the library hours?"
+### 📚 General Services
+- "What are your business hours?"
 - "How much is tuition?"
-- "What is the attendance policy?"
-- "How do I contact career services?"
+- "What is the admission process?"
+- "How do I contact support?"
 
-### 🏢 Campus Facilities  
-- "What are the recreation center hours?"
-- "How do I access the swimming pool?"
-- "What athletic facilities are available?"
+### 🏢 Facilities & Resources  
+- "What facilities are available?"
+- "How do I access the main building?"
+- "What equipment is provided?"
+- "Is parking available?"
 
-### 👥 Student Organizations
-- "How do I join the engineering club?"
-- "What cultural organizations are available?"
-- "How can I start a new student organization?"
+### 👥 People & Departments
+- "Who is the department head?"
+- "How do I reach the admissions office?"
+- "What staff are available?"
+- "How can I schedule an appointment?"
 
-### 🔬 Research & Academics
-- "What are the IRB requirements?"
-- "How do I report research misconduct?"
-- "What are the authorship guidelines?"
+### � Procedures & Policies
+- "What is the refund policy?"
+- "How do I apply for scholarships?"
+- "What are the requirements?"
+- "What documents do I need?"
 
-### 💻 IT Services
-- "How do I connect to campus Wi-Fi?"
-- "What software is available for free?"
-- "How much does printing cost?"
+### 🔧 Technical Support
+- "How do I connect to Wi-Fi?"
+- "What software is available?"
+- "How do I get technical support?"
+- "What are the system requirements?"
 
 **Access the web interface at http://localhost:3020 and select an organization to test!**
 
