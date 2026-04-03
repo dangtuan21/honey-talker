@@ -11,6 +11,9 @@ A FastAPI-based AI chatbot service with RAG (Retrieval-Augmented Generation) cap
 - **🔗 Vector Search**: MongoDB Atlas Vector Search with semantic matching
 - **📊 Embeddings**: 1536-dimensional vectors for accurate semantic search
 - **🗄️ MongoDB Integration**: Persistent storage in talkerdb database
+- **🛡️ Hallucination Prevention**: Improved system prompts to reduce AI hallucination
+- **🔄 Fallback Search**: Text-based search when vector search fails
+- **⚡ High Performance**: Optimized retrieval with top-k=10 for better coverage
 
 ## Tech Stack
 
@@ -63,7 +66,26 @@ The service uses the following environment variables (see `.env.example`):
 - `OPENROUTER_API_KEY`: OpenRouter API key for chat completions
 - `OPENAI_MODEL`: OpenAI model to use (default: stepfun/step-3.5-flash:free)
 - `MONGODB_URL`: MongoDB Atlas connection string
-- `SYSTEM_PROMPT`: System prompt for AI behavior
+- `SYSTEM_PROMPT`: System prompt for AI behavior (updated to reduce hallucination)
+
+## System Prompt
+
+The default system prompt has been optimized to reduce hallucination:
+
+```python
+UNIVERSITY_SYSTEM_PROMPT = (
+    "You are a helpful and professional university receptionist AI. "
+    "Your role is to assist students with general university information, campus services, academic policies, office hours, and frequently asked questions. "
+    "Be concise, polite, and clear. If you don't know the answer, please say: I don't have the answer for that right now. "
+    "Do not provide personal opinions or unofficial advice. Always maintain a friendly and professional tone."
+)
+```
+
+This ensures the AI:
+- Provides accurate information when available
+- Clearly states when information is not available
+- Does not hallucinate or make up answers
+- Maintains a professional, helpful tone
 
 ## Sample Questions
 
@@ -112,7 +134,7 @@ import requests
 # Chat request with RAG
 response = requests.post("http://localhost:8020/chat", json={
     "message": "What are the library hours?",
-    "org_id": "test_org",
+    "org_id": "69ce68f2a749764b8e5f9b42",  # Use organization ID, not name
     "history": []
 })
 
@@ -128,7 +150,7 @@ print(f"Retrieved chunks: {result['retrieved_chunks']}")
 curl -X POST "http://localhost:8020/admin/ingest/knowledge" \
   -H "Content-Type: application/json" \
   -d '{
-    "org_id": "test_org",
+    "org_id": "69ce68f2a749764b8e5f9b42",
     "title": "Library Hours",
     "source": {"type": "manual"},
     "content": "The library is open Monday-Friday 9 AM to 8 PM..."
@@ -140,7 +162,7 @@ curl -X POST "http://localhost:8020/admin/ingest/knowledge" \
 curl -X POST "http://localhost:8020/admin/ingest/chunk" \
   -H "Content-Type: application/json" \
   -d '{
-    "org_id": "test_org",
+    "org_id": "69ce68f2a749764b8e5f9b42",
     "document_id": "doc_123",
     "content": "Specific chunk of content",
     "metadata": {"type": "hours", "section": "library"}
@@ -151,7 +173,7 @@ curl -X POST "http://localhost:8020/admin/ingest/chunk" \
 ```bash
 curl -X POST "http://localhost:8020/admin/ingest/file" \
   -F "file=@document.pdf" \
-  -F "org_id=test_org" \
+  -F "org_id=69ce68f2a749764b8e5f9b42" \
   -F "title=My Document"
 ```
 
@@ -160,7 +182,7 @@ curl -X POST "http://localhost:8020/admin/ingest/file" \
 ### RAG Pipeline
 1. **User Query** → Generate embedding (1536 dimensions)
 2. **Vector Search** → Search both knowledge and chunks collections
-3. **Context Retrieval** → Get top-k relevant documents
+3. **Context Retrieval** → Get top-k relevant documents (increased to 10)
 4. **Prompt Building** → Combine context with system prompt
 5. **LLM Response** → Generate contextual answer
 
@@ -176,6 +198,13 @@ curl -X POST "http://localhost:8020/admin/ingest/file" \
 - **Dimensions**: 1536 (matches embedding model)
 - **Similarity**: Cosine
 - **Fields**: `embedding` (vector), `org_id` (filter), `content` (text)
+
+### Fallback Mechanism
+When vector search fails or returns no results:
+- Falls back to text-based search on `content` field
+- Returns up to 10 documents for better coverage
+- Maintains organization isolation
+- Provides debug logging for troubleshooting
 
 ## Development
 
@@ -204,6 +233,7 @@ python src/test/force_create_index.py
 
 The ht-ai service is designed to work with:
 - **ht-backend**: User management, session handling, organization CRUD
+- **ht-web**: React frontend with organization switching
 - **MongoDB Atlas**: Vector search and data persistence
 - **OpenRouter API**: LLM completions with multiple models
 
@@ -213,6 +243,27 @@ The ht-ai service is designed to work with:
 - **Context Relevance**: Semantic matching with 1536-dimensional embeddings
 - **Organization Isolation**: Queries only retrieve from organization-specific data
 - **Knowledge Freshness**: New documents become searchable within minutes
+- **Coverage**: Top-k=10 provides better context for responses
+- **Reliability**: Fallback search ensures responses even when vector search fails
+
+## Recent Improvements
+
+### System Prompt Optimization
+- **Reduced Hallucination**: Updated prompt to prevent AI from making up answers
+- **Clear Fallback**: Specific instruction to say "I don't have the answer for that right now"
+- **Professional Tone**: Maintained helpful, professional demeanor
+- **Consistent Behavior**: More predictable and reliable responses
+
+### Search Enhancements
+- **Increased Top-K**: From 5 to 10 chunks for better coverage
+- **Fallback Search**: Text-based search when vector search fails
+- **Debug Logging**: Better troubleshooting information
+- **Error Handling**: Graceful degradation when search fails
+
+### Integration Improvements
+- **Organization ID Handling**: Fixed frontend to use `_id` instead of `id`
+- **API Consistency**: Standardized response formats
+- **Error Messages**: More informative error responses
 
 ## Troubleshooting
 
@@ -225,3 +276,13 @@ The ht-ai service is designed to work with:
 1. Verify MongoDB URL in `.env`
 2. Check database: should be `talkerdb`
 3. Test connection: `python src/test/verify_mongodb_connection.py`
+
+### Organization Issues
+1. Verify organization ID format (should be `_id` from organizations collection)
+2. Check organization exists: `curl http://localhost:3020/organizations`
+3. Test with correct org_id: Use `_id` field, not organization name
+
+### No Knowledge Retrieved
+1. Check if organization has knowledge: `curl http://localhost:3020/knowledge/by-org/:orgId`
+2. Verify vector search is working: Check logs for fallback activation
+3. Ensure knowledge is properly embedded: Check embeddings in database
