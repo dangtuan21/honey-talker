@@ -52,7 +52,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
       if (response.ok) {
         const data = await response.json();
         setOrganizations(data.map((org: any) => ({
-          id: org._id,
+          _id: org._id,
           name: org.name,
           description: org.description,
           createdAt: org.created_at,
@@ -258,6 +258,9 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
                       Organization Name
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Organization ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Description
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -273,6 +276,9 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
                     <tr key={`org-${org._id}`} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">{org.name}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-500 font-mono bg-gray-100 px-2 py-1 rounded">{org._id}</div>
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm text-gray-500 max-w-xs truncate">{org.description}</div>

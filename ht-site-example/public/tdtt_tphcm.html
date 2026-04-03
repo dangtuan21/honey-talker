@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trường Đại học Thể dục Thể thao TP.HCM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-orange { background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); }
+        .gradient-blue { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+        .text-gradient { background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hover-scale { transition: transform 0.3s ease; }
+        .hover-scale:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="gradient-orange rounded-lg p-2 mr-3">
+                            <i class="fas fa-running text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xl font-bold text-gray-900">Đại học TDTT TP.HCM</span>
+                            <span class="text-xs text-gray-500 block">TDTT University - Leading Sports Education</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors">Trang chủ</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors">Giới thiệu</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors">Đào tạo</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors">Nghiên cứu</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors">Tuyển sinh</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors">Tin tức</a>
+                </div>
+                <div class="flex space-x-3">
+                    <button class="border border-orange-600 text-orange-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-50 transition-colors">
+                        Cổng thông tin
+                    </button>
+                    <button class="gradient-orange text-white px-4 py-2 rounded-md text-sm font-medium hover:shadow-lg transition-all">
+                        Tuyển sinh 2024
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-orange-500 to-red-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    Đào tạo athletes<br/>
+                    <span class="text-orange-100">chất lượng cao</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-orange-100 max-w-3xl mx-auto">
+                    Trường Đại học Thể dục Thể thao TP.HCM - Trung tâm đào tạo thể thao hàng đầu Việt Nam
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        Xem chương trình đào tạo
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors">
+                        <i class="fas fa-play-circle mr-2"></i>
+                        Xem video giới thiệu
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+                <div class="hover-scale">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">50+</div>
+                    <div class="text-gray-600">Chương trình đào tạo</div>
+                </div>
+                <div class="hover-scale">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">15,000+</div>
+                    <div class="text-gray-600">Sinh viên</div>
+                </div>
+                <div class="hover-scale">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">200+</div>
+                    <div class="text-gray-600">HLV chuyên nghiệp</div>
+                </div>
+                <div class="hover-scale">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">95%</div>
+                    <div class="text-gray-600">Tỷ lệ có việc làm</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Chương trình đào tạo</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Đa dạng các ngành học từ cử nhân đến tiến sĩ, tập trung vào đào tạo thể thao chuyên nghiệp
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 hover-scale">
+                    <div class="gradient-orange w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-running text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Đào tạo VĐV chuyên nghiệp</h3>
+                    <p class="text-gray-600 mb-4">
+                        Chương trình đào tạo vận động viên chuyên nghiệp các môn Olympic và ASIAD
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Điền kinh</li>
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Bơi lội</li>
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Quần vợt</li>
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Võ thuật</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 hover-scale">
+                    <div class="gradient-blue w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Quản lý thể thao</h3>
+                    <p class="text-gray-600 mb-4">
+                        Chương trình đào tạo quản lý viên, chuyên gia thể thao và sự kiện thể thao
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>Quản lý thể thao</li>
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>Kinh doanh thể thao</li>
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>Tổ chức sự kiện</li>
+                        <li><i class="fas fa-check text-blue-600 mr-2"></i>Truyền thông thể thao</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 hover-scale">
+                    <div class="gradient-orange w-16 h-16 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-heartbeat text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Khoa học thể thao</h3>
+                    <p class="text-gray-600 mb-4">
+                        Chương trình nghiên cứu và ứng dụng khoa học trong luyện tập và thi đấu
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-2">
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Sinh lý học thể thao</li>
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Dinh dưỡng thể thao</li>
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Tâm lý học thể thao</li>
+                        <li><i class="fas fa-check text-orange-600 mr-2"></i>Phục hồi chức năng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Cơ sở vật chất</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Hệ thống cơ sở vật chất hiện đại, đáp ứng tiêu chuẩn quốc tế
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-50 rounded-lg p-6 text-center hover-scale">
+                    <i class="fas fa-swimming-pool text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="font-semibold mb-2">Bể bơi Olympic</h3>
+                    <p class="text-sm text-gray-600">50m, 8 làn đạt chuẩn FINA</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 text-center hover-scale">
+                    <i class="fas fa-running text-4xl text-orange-600 mb-4"></i>
+                    <h3 class="font-semibold mb-2">Sân vận động</h3>
+                    <p class="text-sm text-gray-600">Sân điền kinh, bóng đá chuyên nghiệp</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 text-center hover-scale">
+                    <i class="fas fa-dumbbell text-4xl text-gray-600 mb-4"></i>
+                    <h3 class="font-semibold mb-2">Phòng gym</h3>
+                    <p class="text-sm text-gray-600">Trang thiết bị hiện đại</p>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 text-center hover-scale">
+                    <i class="fas fa-clinic-medical text-4xl text-green-600 mb-4"></i>
+                    <h3 class="font-semibold mb-2">Trạm y tế</h3>
+                    <p class="text-sm text-gray-600">Phục hồi chức năng chuyên sâu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Tin tức & Sự kiện</h2>
+                <p class="text-xl text-gray-600">Cập nhật thông tin mới nhất từ nhà trường</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale">
+                    <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-orange-600 font-semibold mb-2">Tuyển sinh 2024</div>
+                        <h3 class="text-xl font-semibold mb-2">Mở cổng tuyển sinh đại học chính quy</h3>
+                        <p class="text-gray-600 mb-4">Nhà trường chính thức mở cổng tuyển sinh đại học chính quy năm 2024 với nhiều ngành học mới...</p>
+                        <a href="#" class="text-orange-600 font-semibold hover:text-orange-700">Đọc thêm →</a>
+                    </div>
+                </article>
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-500"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-blue-600 font-semibold mb-2">Thành tích</div>
+                        <h3 class="text-xl font-semibold mb-2">Huy chương vàng ASIAD 2023</h3>
+                        <p class="text-gray-600 mb-4">Sinh viên nhà trường đạt thành tích xuất sắc tại ASIAD 2023 với 5 huy chương vàng...</p>
+                        <a href="#" class="text-blue-600 font-semibold hover:text-blue-700">Đọc thêm →</a>
+                    </div>
+                </article>
+                <article class="bg-white rounded-lg shadow-lg overflow-hidden hover-scale">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-green-600 font-semibold mb-2">Hợp tác quốc tế</div>
+                        <h3 class="text-xl font-semibold mb-2">Ký kết hợp tác với UEFA</h3>
+                        <p class="text-gray-600 mb-4">Nhà trường ký kết thỏa thuận hợp tác đào tạo huấn luyện viên với UEFA...</p>
+                        <a href="#" class="text-green-600 font-semibold hover:text-green-700">Đọc thêm →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Liên hệ</h2>
+                <p class="text-xl text-gray-600">Chúng tôi luôn sẵn sàng tư vấn và hỗ trợ</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="gradient-orange w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Địa chỉ</h3>
+                    <p class="text-gray-600">Số 1, Đường Phạm Văn Đồng, <br/>Phường Văn Quán, Quận Hai Bà Trưng, Hà Nội</p>
+                </div>
+                <div class="text-center">
+                    <div class="gradient-blue w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-phone text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Điện thoại</h3>
+                    <p class="text-gray-600">(024) 3868 4567<br/>Hotline: 1900 1234</p>
+                </div>
+                <div class="text-center">
+                    <div class="gradient-orange w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope text-white text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold mb-2">Email</h3>
+                    <p class="text-gray-600">info@tdtt.edu.vn<br/>tuyensinh@tdtt.edu.vn</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="gradient-orange rounded-lg p-2 mr-3">
+                            <i class="fas fa-running text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">ĐH TDTT TP.HCM</span>
+                    </div>
+                    <p class="text-gray-400">Trung tâm đào tạo thể thao chuyên nghiệp hàng đầu Việt Nam</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Đào tạo</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Đại học</a></li>
+                        <li><a href="#" class="hover:text-white">Sau đại học</a></li>
+                        <li><a href="#" class="hover:text-white">Đào tạo ngắn hạn</a></li>
+                        <li><a href="#" class="hover:text-white">Lớp bồi dưỡng</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Về chúng tôi</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Giới thiệu</a></li>
+                        <li><a href="#" class="hover:text-white">Lịch sử</a></li>
+                        <li><a href="#" class="hover:text-white">Tầm nhìn</a></li>
+                        <li><a href="#" class="hover:text-white">Cơ cấu tổ chức</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Theo dõi</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Đại học Thể dục Thể thao TP.HCM. Bản quyền được bảo lưu. | Chính sách bảo mật | Điều khoản sử dụng</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Honey Talker Widget -->
+    <script src="/honey-talker-widget.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing widget...');
+            
+            // Check if widget is available
+            if (typeof HoneyTalkerWidget !== 'undefined') {
+                console.log('Widget found, initializing...');
+                try {
+                    HoneyTalkerWidget.init({
+                        theme: 'tech', // Using tech theme for sports university
+                        position: 'bottom-right',
+                        welcomeMessage: 'Xin chào! Tôi là trợ lý AI Honey Talker của Đại học TDTT TP.HCM. Tôi có thể giúp gì cho bạn?',
+                        apiUrl: 'http://localhost:8020/chat',
+                        orgId: '69cff9af13ff4df382ad11ff' // DH TD TT TP HCM organization
+                    });
+                    console.log('Widget initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing widget:', error);
+                }
+            } else {
+                console.error('Honey Talker Widget not found!');
+            }
+        });
+    </script>
+</body>
+</html>
