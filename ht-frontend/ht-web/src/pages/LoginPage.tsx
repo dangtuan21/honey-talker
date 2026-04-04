@@ -40,7 +40,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
       // Redirect to chat after successful login
       window.location.href = '/';
     } else {
-      setError(`Invalid credentials. Try ${DEMO_USERS.ADMIN.username}/${DEMO_USERS.ADMIN.password} or ${DEMO_USERS.USER.username}/${DEMO_USERS.USER.password}`);
+      setError('Invalid credentials. Please check your username and password.');
     }
 
     setIsLoading(false);
@@ -120,14 +120,6 @@ const LoginPage: React.FC<LoginPageProps> = () => {
               {isLoading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
-
-          <div className="mt-6 p-4 bg-gray-50 rounded-md">
-            <p className="text-sm text-gray-600 font-medium mb-2">Demo Credentials:</p>
-            <div className="space-y-1 text-xs text-gray-500">
-              <div><span className="font-medium">Admin:</span> {DEMO_USERS.ADMIN.username} / {DEMO_USERS.ADMIN.password}</div>
-              <div><span className="font-medium">User:</span> {DEMO_USERS.USER.username} / {DEMO_USERS.USER.password}</div>
-            </div>
-          </div>
         </div>
       </div>
 
