@@ -6,6 +6,7 @@ import { organizationsRoutes } from "./routes/organizations";
 import { sessionsRoutes } from "./routes/sessions";
 import { messagesRoutes } from "./routes/messages";
 import { knowledgeRoutes } from "./routes/knowledge";
+import { chatRoutes } from "./routes/chat";
 
 async function buildServer() {
   const server = fastify({ logger: true });
@@ -23,6 +24,7 @@ async function buildServer() {
   await server.register(sessionsRoutes, { prefix: "/sessions" });
   await server.register(messagesRoutes, { prefix: "/messages" });
   await server.register(knowledgeRoutes, { prefix: "/knowledge" });
+  await server.register(chatRoutes, { prefix: "/api" });
 
   return server;
 }

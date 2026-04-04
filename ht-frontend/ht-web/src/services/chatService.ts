@@ -2,7 +2,7 @@ export class ChatService {
   private apiUrl: string;
   private orgId: string;
 
-  constructor(apiUrl: string = 'http://localhost:8020/chat', orgId: string = 'test_org') {
+  constructor(apiUrl: string = '/api/chat', orgId: string = 'default_org') {
     this.apiUrl = apiUrl;
     this.orgId = orgId;
   }
