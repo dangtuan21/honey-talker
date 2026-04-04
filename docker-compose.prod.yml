@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  ht-ai:
+    build: ./ht-ai
+    container_name: ht-ai
+    restart: unless-stopped
+    env_file:
+      - ./ht-ai/.env
+    networks:
+      - honey-talker-network
+    # No volume mounts for production
+    # No port exposure - internal communication only
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8020/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ht-backend:
+    build: ./ht-backend
+    container_name: ht-backend
+    restart: unless-stopped
+    env_file:
+      - ./ht-backend/.env
+    environment:
+      - AI_SERVICE_URL=http://ht-ai:8020  # Service name communication
+    networks:
+      - honey-talker-network
+    # No port exposure - nginx handles external traffic
+    depends_on:
+      ht-ai:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3020/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ht-web:
+    build: 
+      context: ./ht-frontend/ht-web
+      dockerfile: Dockerfile
+    container_name: ht-web
+    restart: unless-stopped
+    networks:
+      - honey-talker-network
+    # No port exposure - nginx handles external traffic
+    depends_on:
+      ht-backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4020"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ht-site-example:
+    build: 
+      context: ./ht-site-example
+      dockerfile: Dockerfile
+    container_name: ht-site-example
+    restart: unless-stopped
+    networks:
+      - honey-talker-network
+    # No port exposure - nginx handles external traffic
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5020"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx:
+    image: nginx:alpine
+    container_name: ht-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro  # SSL certificates
+    depends_on:
+      ht-web:
+        condition: service_healthy
+      ht-backend:
+        condition: service_healthy
+      ht-site-example:
+        condition: service_healthy
+    networks:
+      - honey-talker-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  honey-talker-network:
+    driver: bridge
+
+# No volumes for production - everything is in the images

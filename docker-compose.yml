@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  ht-ai:
+    build: ./ht-ai
+    container_name: ht-ai
+    restart: unless-stopped
+    env_file:
+      - ./ht-ai/.env
+    ports:
+      - "8020:8020"  # Expose AI service for frontend access
+    volumes:
+      - ./ht-ai/src:/app/src  # Mount only source code for development
+      - /app/.venv  # Exclude venv from host mount
+      - /app/__pycache__  # Exclude pycache
+    networks:
+      - honey-talker-network
+
+  ht-backend:
+    build: ./ht-backend
+    container_name: ht-backend
+    restart: unless-stopped
+    env_file:
+      - ./ht-backend/.env
+    environment:
+      - AI_SERVICE_URL=http://ht-ai:8020  # Service name communication
+    ports:
+      - "3020:3020"  # Expose for local development and nginx
+    volumes:
+      - ./ht-backend:/app  # For local development
+      - /app/node_modules
+    depends_on:
+      - ht-ai
+    networks:
+      - honey-talker-network
+
+  ht-web:
+    build: 
+      context: ./ht-frontend/ht-web
+      dockerfile: Dockerfile
+    container_name: ht-web
+    restart: unless-stopped
+    environment:
+      - REACT_APP_API_URL=http://ht-backend:3020  # Service name communication
+    ports:
+      - "4020:4020"  # Expose for local development
+    volumes:
+      - ./ht-frontend/ht-web:/app  # For local development
+      - /app/node_modules
+    depends_on:
+      - ht-backend
+    networks:
+      - honey-talker-network
+
+  ht-site-example:
+    build: 
+      context: ./ht-site-example
+      dockerfile: Dockerfile
+    container_name: ht-site-example
+    restart: unless-stopped
+    ports:
+      - "5020:5020"  # Expose for local development
+    volumes:
+      - ./ht-site-example:/app  # For local development
+      - /app/node_modules
+    networks:
+      - honey-talker-network
+
+  # Optional: Add nginx for production-like reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: ht-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"  # Main entry point
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - ht-web
+      - ht-backend
+      - ht-site-example
+    networks:
+      - honey-talker-network
+    profiles:
+      - production  # Only include with --profile production
+
+networks:
+  honey-talker-network:
+    driver: bridge
+
+volumes:
+  node_modules_backend:
+  node_modules_frontend:
+  node_modules_site_example:
