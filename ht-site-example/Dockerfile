@@ -18,6 +18,9 @@ FROM nginx:alpine
 # Copy built React app
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Copy public HTML files to root
+COPY --from=builder /app/public/*.html /usr/share/nginx/html/
+
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 

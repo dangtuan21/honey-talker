@@ -301,7 +301,7 @@ class HoneyTalkerWidgetManager {
     
     try {
       // Call the real chat API
-      const apiUrl = this.currentConfig.apiUrl || 'http://localhost:8020/chat';
+      const apiUrl = this.currentConfig.apiUrl || '/api/chat';
       const orgId = this.currentConfig.orgId || '69cff40f084e71ebda388213';
       
       console.log('Calling API:', apiUrl, 'with orgId:', orgId, 'message:', message);
