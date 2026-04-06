@@ -71,7 +71,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ user: propUser, onLogout:
 
   const fetchOrganizations = async () => {
     try {
-      const response = await fetch('http://localhost:3020/organizations');
+      const response = await fetch('/api/organizations');
       if (response.ok) {
         const data = await response.json();
         setOrganizations(data);

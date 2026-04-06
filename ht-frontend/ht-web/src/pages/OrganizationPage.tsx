@@ -48,7 +48,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
 
   const fetchOrganizations = async () => {
     try {
-      const response = await fetch('http://localhost:3020/organizations');
+      const response = await fetch('/api/organizations');
       if (response.ok) {
         const data = await response.json();
         setOrganizations(data.map((org: any) => ({
@@ -114,7 +114,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
       
       if (dialogMode === 'edit' && selectedOrg) {
         // Update existing organization
-        response = await fetch(`http://localhost:3020/organizations/${selectedOrg._id}`, {
+        response = await fetch(`/api/organizations/${selectedOrg._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
       } else {
         // Add new organization
         const orgId = formData.name.toLowerCase().replace(/\s+/g, '_');
-        response = await fetch('http://localhost:3020/organizations', {
+        response = await fetch('/api/organizations', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ const OrganizationPage: React.FC<OrganizationPageProps> = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:3020/organizations/${selectedOrg._id}`, {
+      const response = await fetch(`/api/organizations/${selectedOrg._id}`, {
         method: 'DELETE'
       });
       

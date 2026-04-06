@@ -74,7 +74,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
 
   const fetchOrganizations = async () => {
     try {
-      const response = await fetch('http://localhost:3020/organizations');
+      const response = await fetch('/api/organizations');
       if (response.ok) {
         const data = await response.json();
         setOrganizations(data);
@@ -90,9 +90,9 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
 
   const fetchKnowledgeItems = async () => {
     try {
-      let url = 'http://localhost:3020/knowledge';
+      let url = '/knowledge';
       if (selectedOrgFilter !== 'all') {
-        url = `http://localhost:3020/knowledge/by-org/${selectedOrgFilter}`;
+        url = `/knowledge/by-org/${selectedOrgFilter}`;
       }
       
       const response = await fetch(url);
@@ -142,7 +142,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
       formData.append('org_id', orgId);
       formData.append('title', file.name);
 
-      const response = await fetch('http://localhost:8020/admin/ingest/file', {
+      const response = await fetch('/api/admin/ingest/file', {
         method: 'POST',
         body: formData
       });
@@ -191,7 +191,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
       
       if (dialogMode === 'edit' && selectedItem) {
         // Update existing item
-        response = await fetch(`http://localhost:3020/knowledge/${selectedItem.id}`, {
+        response = await fetch(`/knowledge/${selectedItem.id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -212,7 +212,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
         }
       } else {
         // Add new item
-        response = await fetch('http://localhost:3020/knowledge', {
+        response = await fetch('/knowledge', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -248,7 +248,7 @@ const KnowledgePage: React.FC<KnowledgePageProps> = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:3020/knowledge/${selectedItem.id}`, {
+      const response = await fetch(`/knowledge/${selectedItem.id}`, {
         method: 'DELETE'
       });
       

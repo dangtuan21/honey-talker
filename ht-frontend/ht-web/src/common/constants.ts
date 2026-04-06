@@ -9,7 +9,7 @@ export type UserRole = Role;
 
 // API Endpoints
 export const API_ENDPOINTS = {
-  BASE_URL: 'http://localhost:3020',
+  BASE_URL: '',
   ORGANIZATIONS: '/organizations',
   KNOWLEDGE: '/knowledge',
   CHAT: '/chat',
