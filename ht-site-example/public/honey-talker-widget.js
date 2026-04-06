@@ -138,18 +138,13 @@ class HoneyTalkerWidgetManager {
   }
 
   loadMessages() {
-    const theme = this.currentConfig.theme || 'default';
-    const savedMessages = localStorage.getItem(`honey-talker-messages-${theme}`);
-    if (savedMessages) {
-      try {
-        this.messages = JSON.parse(savedMessages);
-      } catch (error) {
-        console.error('Failed to load saved messages:', error);
-        this.messages = [];
-      }
-    }
+    // Clear messages on page load for a fresh session
+    this.messages = [];
+    this.unreadCount = 0;
     
-    this.unreadCount = this.messages.filter(msg => msg.role === 'assistant').length;
+    // Optional: Clear any existing localStorage messages for this theme
+    const theme = this.currentConfig.theme || 'default';
+    localStorage.removeItem(`honey-talker-messages-${theme}`);
   }
 
   saveMessages() {
